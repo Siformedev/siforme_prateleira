@@ -145,7 +145,7 @@
             -->
             <div class="menu-info-block">
                 <div class="center-block text-center">
-                    <img class="height-50 logo-mobile" src="{{ asset('assets/common/img/logo.png') }}" alt="{{env('APP_NAME')}} LOGO">
+                    {{-- <img class="height-50 logo-mobile" src="{{ asset('assets/common/img/logo.png') }}" alt="{{env('APP_NAME')}} LOGO"> --}}
                 </div>
             </div>
         </div>
