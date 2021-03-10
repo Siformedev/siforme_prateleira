@@ -1,0 +1,31 @@
+.logo-mobile {
+    display: none;
+}
+
+.text-logo-mobile {
+    font-size: 32px;
+    color: #999;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 768px) {
+    .logo-mobile {
+        display: inline;
+    }
+
+    .text-logo-mobile {
+        display: none;
+    }
+}
+
+.pn-hover-chamado:hover {
+    background: #e3e3e3;
+}
+
+.panelClicked{
+     cursor: pointer;
+ }
+
+.panelClicked:hover{
+    background-color: #d0d3d8;
+}

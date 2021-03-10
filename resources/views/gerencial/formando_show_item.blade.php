@@ -1,0 +1,170 @@
+@extends('comissao.inc.layout')
+
+@section('content')
+
+
+    <section class="page-content">
+        <div class="page-content-inner">
+
+            <section class="panel">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-11">
+                            <h3>{{$prod['name']}}</h3>
+                        </div>
+                        <div class="col-md-1"><a class="btn btn-default" href="{{route('comissao.formandos.show')}}">Voltar</a> </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9hAAvkAoU2EEDF8terQ3Bvk--mIQAnihJpcDmL0Wmfy5Czw23" style="width: 100px;">
+                        </div>
+                        <div class="col-md-11">
+                            <b>Descrição:</b> <br>
+                            {{$prod['description']}}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <hr>
+                                    <span>Percentual já Pago (75%)</span>
+                                    <progress class="progress progress-warning progress-striped" value="25" max="100">75%</progress>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <h3>Dados do Pedido</h3>
+
+                    <div class="row">
+                        <div class="col-md-12" style="font-size: 16px;">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th scope="row">Codigo:</th>
+                                    <td>#{{str_pad($prod['id'], 8, '0', STR_PAD_LEFT)}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Data do pedido:</th>
+                                    <td>{{Carbon\Carbon::parse($prod['created_at'])->format('d/m/Y')}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Valor:</th>
+                                    <td>R$ {{number_format($prod->valorFinal(),2,",", ".")}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Quantidade:</th>
+                                    <td>{{number_format($prod['amount'],0)}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Dia Pagamento:</th>
+                                    <td>{{$prod['payday']}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Próximo Reajuste IGPM
+                                        <button type="button" class="btn btn-default-outlined margin-inline" data-toggle="tooltip" data-placement="top" title="" data-original-title="Correção monetária que acontece de 12 em 12 meses">
+                                            ?
+                                        </button>
+                                        <script>
+
+                                            $(function () {
+
+                                                $("[data-toggle=popover]").popover();
+                                                $("[data-toggle=popover-hover]").popover({
+                                                    trigger: 'hover'
+                                                });
+
+                                                $("[data-toggle=tooltip]").tooltip();
+
+                                            });
+
+                                        </script>
+                                        :</th>
+                                    <td>{{Carbon\Carbon::parse($prod['reset_igpm'])->format('d/m/Y')}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Status</th>
+                                    <td>Adimplente</td>
+                                </tr>
+                                <tr class="">
+                                    <th scope="row">TERMO DE ADESÃO</th>
+                                    <td><button type="button" class="btn btn-success margin-inline"  data-toggle="modal" data-target="#myModal_{{ $termo['id'] }}">Imprimir</button></td>
+                                </tr>
+                            </table>
+                            <!-- Modal -->
+                            <div id="myModal_{{ $termo['id'] }}" class="modal fade modal-size-large" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">{{$termo['titulo']}}</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>{!!  $termo['conteudo']!!}</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+                    <h3>Parcelas</h3>
+
+                    <div class="row">
+                        <div class="col-md-12" style="font-size: 16px;">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Vencimento</th>
+                                        <th class="text-center">Valor</th>
+                                        <th class="text-center">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($parcelas as $parcela)
+                                    @php
+                                    if($parcela['dt_vencimento'] == '2017-08-10'){
+                                        $status = 'PAGO';
+                                        $dd = 'success';
+                                    }elseif($parcela['dt_vencimento'] == '2017-09-10'){
+
+                                        $status = 'PAGO';
+                                        $dd = 'success';
+                                    }else{
+                                        $status = 'A Vencer';
+                                        $dd = 'primary';
+                                    }
+                                    @endphp
+                                    <tr>
+                                        <td class="text-center">{{date('d/m/Y', strtotime($parcela['dt_vencimento']))}}</td>
+                                        <td class="text-center">{{number_format($parcela['valor'],2, ",", ".")}}</td>
+                                        <td class="text-center"><span class="label label-{{$dd}}">{{$status}}</span> </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="panel-footer">
+                </div>
+            </section>
+        </div>
+
+    </section>
+
+    <script type="text/javascript">
+        $(function(){
+
+        });
+    </script>
+
+@endsection
