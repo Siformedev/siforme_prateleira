@@ -26,7 +26,7 @@ class CreateContractsTable extends Migration
             $table->string('code');
             // $table->string('periodos');
             $table->string('valid');
-            $table->integer('pseg_acc');
+            // $table->integer('pseg_acc');
             $table->string('tipo_pagamento');
             $table->timestamps();
         });
