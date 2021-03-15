@@ -24,7 +24,7 @@ class CreateContractsTable extends Migration
             $table->tinyInteger('igpm')->default(1);
             $table->string('email');
             $table->string('code');
-            $table->string('periodos');
+            // $table->string('periodos');
             $table->string('valid');
             $table->integer('pseg_acc');
             $table->string('tipo_pagamento');
