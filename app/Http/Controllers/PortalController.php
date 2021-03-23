@@ -1897,6 +1897,7 @@ $parcelsModel->delete();
         $dados_contrato = Contract::find(Auth::user()->userable->contract_id);
 
         $tipo_pagamento = $dados_contrato->tipo_pagamento;
+        dd($dados_contrato);
        
         return view('portal.extrato_produto_payment', compact('prod', 'parcelas', 'pagamentos', 'prod_status', 'date', 'dateLimit', 'saldo_pagar', 'valor_pago_p', 'parce_max', 'sum_pags', 'id_sessao','tipo_pagamento'));
     }
