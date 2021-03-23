@@ -178,10 +178,13 @@ Route::group(['prefix'=>'gerencial','as' => 'gerencial.', 'middleware' => ['auth
 
     //Formandos
     Route::get('formandos', ['uses' => 'Gerencial\FormandoAdminController@index', 'as' => 'formandos']);
+    Route::post('formando/getparcela/{id}', ['uses' => 'Gerencial\FormandoAdminController@getParcela', 'as' => 'editaparcela']);
+    Route::post('formando/editparcela/{id}', ['uses' => 'Gerencial\FormandoAdminController@editParcela', 'as' => 'formando.editparcela']);
+    Route::post('formando/removeparcela/{id}', ['uses' => 'Gerencial\FormandoAdminController@removeParcela', 'as' => 'formando.removeparcela']);
     Route::get('formando/{forming}', ['uses' => 'Gerencial\FormandoAdminController@show', 'as' => 'formando.show']);
     Route::get('formando/extrato/{prod}', ['uses' => 'Gerencial\FormandoAdminController@showItem', 'as' => 'formando.show.item']);
     Route::get('formando/login/{forming}', ['uses' => 'Gerencial\FormandoAdminController@forceLogin', 'as' => 'formando.login']);
-
+    
 
 
     Route::get('contratos', ['uses' => 'Gerencial\ContratoController@index', 'as' => 'contratos']);
