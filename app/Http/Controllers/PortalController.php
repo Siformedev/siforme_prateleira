@@ -1895,7 +1895,6 @@ $parcelsModel->delete();
         AuditAndLog::createLog(Auth::user()->id, 'Acessou Extrato Produtos: ' . $prod->name . ' - ID#' . $prod->id, 'null', Auth::user()->userable->contract_id);
        
         $dados_contrato = Contract::find(Auth::user()->userable->contract_id);
-        dd($dados_contrato);
         $tipo_pagamento = $dados_contrato->tipo_pagamento;
     
        
