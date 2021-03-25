@@ -108,9 +108,7 @@ class PagSeguroService
     public function criarBoleto($data)
     {
        
-       
-       dd($data);
-       
+           
         try {
 
             $response = $this->client->post("https://ws.pagseguro.uol.com.br/v2/transactions?appId={$this->app_id}&appKey={$this->key_pseg}&authorizationCode=$this->auth_pseg", [
