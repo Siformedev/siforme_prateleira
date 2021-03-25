@@ -47,16 +47,23 @@ class PagSeguroService
 
         $acc_pseg = @AccountPseg::find($contrato['pseg_acc']);
 
+        //chave única por cliente
         $this->token = @$acc_pseg->pseg_token;
+    
         $this->email = @$acc_pseg->pseg_email;
+    
+    
+        // chave única por cliente
         $this->auth_pseg = @$acc_pseg->app_pseg_auth;
+        
+        
+        //chave da aplicação
         $this->app_id = @$acc_pseg->app_pseg_id;
+        
+        
+        //chave da aplicação
         $this->key_pseg = @$acc_pseg->app_pseg_key;
-        //$this->app_id = env('APP_PSEG_ID');
-        //$this->key_pseg = env('APP_PSEG_KEY');
-        //$this->auth_pseg = env('APP_PSEG_AUTH');
-        //$this->email = env('PSEG_EMAIL');
-        //$this->token = env('PSEG_TOKEN');
+        
 
         $this->client = new Client([
             //'headers' => ['Authorization' => 'Bearer '.$this->token],
@@ -70,9 +77,8 @@ class PagSeguroService
     {
 
         try {
-            // $response = $this->client->post("https://ws.pagseguro.uol.com.br/v2/sessions?email={$this->email}&token={$this->token}", []);
-            $response = $this->client->post("https://ws.pagseguro.uol.com.br/v2/sessions?email=granmuranocg@gmail.com&token=bc15021f-ebc7-4c39-bb41-6fd1a00e97ee6d747d1447f7a8e9569310513b4d91c54ff8-a894-48b9-af2a-4eeb84c6be4c", []);
-            //$response = $this->client->post("https://ws.pagseguro.uol.com.br/v2/sessions?email=clerp@hotmail.com&token=bc15021f-ebc7-4c39-bb41-6fd1a00e97ee6d747d1447f7a8e9569310513b4d91c54ff8-a894-48b9-af2a-4eeb84c6be4c", []);
+             $response = $this->client->post("https://ws.pagseguro.uol.com.br/v2/sessions?email={$this->email}&token={$this->token}", []);
+           // $response = $this->client->post("https://ws.pagseguro.uol.com.br/v2/sessions?email=clerp@hotmail.com&token=bc15021f-ebc7-4c39-bb41-6fd1a00e97ee6d747d1447f7a8e9569310513b4d91c54ff8-a894-48b9-af2a-4eeb84c6be4c", []);
 
             return simplexml_load_string($response->getBody()->getContents())->id;
         } catch (\Exception $exception) {
@@ -127,8 +133,8 @@ class PagSeguroService
         }
 
         try {
-            // $response = $this->client->get("https://ws.pagseguro.uol.com.br/v3/transactions/notifications/{$notificationCode}?email={$this->email}&token={$this->token}", []);
-            $response = $this->client->get("https://ws.pagseguro.uol.com.br/v3/transactions/".$notificationCode."?email=granmuranocg@gmail.com&token=bc15021f-ebc7-4c39-bb41-6fd1a00e97ee6d747d1447f7a8e9569310513b4d91c54ff8-a894-48b9-af2a-4eeb84c6be4c", []);
+             $response = $this->client->get("https://ws.pagseguro.uol.com.br/v3/transactions/notifications/{$notificationCode}?email={$this->email}&token={$this->token}", []);
+            //$response = $this->client->get("https://ws.pagseguro.uol.com.br/v3/transactions/".$notificationCode."?email=granmuranocg@gmail.com&token=bc15021f-ebc7-4c39-bb41-6fd1a00e97ee6d747d1447f7a8e9569310513b4d91c54ff8-a894-48b9-af2a-4eeb84c6be4c", []);
 
 
             $xml_string = $response->getBody()->getContents();
