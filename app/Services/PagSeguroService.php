@@ -117,7 +117,6 @@ class PagSeguroService
 
             $response_obj = simplexml_load_string($response->getBody()->getContents());
 
-            dd($response_obj);
 
             Log::debug('TRN com boleto: ' . json_encode($response_obj));
 
