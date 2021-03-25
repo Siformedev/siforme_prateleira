@@ -91,7 +91,8 @@ class PagSeguroService
     {
 
         try {
-            $response = $this->client->post("https://ws.pagseguro.uol.com.br/v2/transactions?appId={$this->app_id}&appKey={$this->key_pseg}&authorizationCode=$this->auth_pseg", [
+            //$response = $this->client->post("https://ws.pagseguro.uol.com.br/v2/transactions?appId={$this->app_id}&appKey={$this->key_pseg}&authorizationCode=$this->auth_pseg", [
+                $response = $this->client->post("https://ws.pagseguro.uol.com.br/v2/transactions?appId=siforme&appKey=7FFA349F35351DEBB4D41FBDE3E5DCBA&authorizationCode=9F1E8A5100BE4A08B505240A5EF4E08C",[
                 'form_params' => $data,
             ]);
 
