@@ -593,7 +593,7 @@ $parcelsModel->delete();
 //dd($data);
             $retorno = $gatewayService->criarBoleto($data);
 
-            dd($retorno);
+            //dd($retorno);
         
             //var_dump( ($retorno));exit;
             if (!isset($retorno->status)) {
