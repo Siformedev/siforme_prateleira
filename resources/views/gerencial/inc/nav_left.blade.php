@@ -1,7 +1,9 @@
 <nav class="left-menu">
     <div class="logo-container" style="background: #f1f1f1">
         <a>
-            <img src="{{ asset('assets/common/img/logo_impacto.jpg') }}" class="width-150" alt="{{env('APP_NAME')}} LOGO">
+            <img src="{{ asset('assets/common/img/logo.png') }}" class="width-150" alt="{{env('APP_NAME')}} LOGO">
+
+            
         </a>
     </div>
     <div class="left-menu-inner scroll-pane jspScrollable" tabindex="0"
