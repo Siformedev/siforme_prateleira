@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="logo">
-                            <img src="../assets/common/img/logo_impacto.jpg" alt="SIFORME" /> 
+                            <img src="../assets/common/img/logo_maximus.png" alt="SIFORME" /> 
                         </div>
                     </div>
                     <div class="col-lg-8">
