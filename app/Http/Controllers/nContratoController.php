@@ -20,6 +20,9 @@ class nContratoController extends Controller
 
     public function consultContract(Request $request)
     {
+        
+        dd("teste");
+        
         $code = $request->input('code');
         $contrato = Contract::where('code', $code)->get()->first();
         if(isset($contrato->valid) and !empty($contrato->valid)){
