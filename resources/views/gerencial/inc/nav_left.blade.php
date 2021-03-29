@@ -1,5 +1,5 @@
 <nav class="left-menu">
-    <div class="logo-container" style="background: #f1f1f1">
+    <div class="logo-container" style="background: #ffffff">
         <a>
             <img src="{{ asset('assets/common/img/logo_impacto.jpg') }}" class="width-150" alt="{{env('APP_NAME')}} LOGO">
 
