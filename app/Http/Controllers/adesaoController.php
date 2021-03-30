@@ -115,8 +115,7 @@ class adesaoController extends Controller
             $periodos[$periodoString] = ConfigApp::Periodos()[$periodoString];
         }
 
-        dd($periodos);
-
+     
         return view('adesao.contrato', compact('contrato','mes', 'courses', 'data', 'periodos', 'fases', 'product', 'register'));
     }
 
