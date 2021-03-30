@@ -84,12 +84,13 @@
                             </div>
                         </div>
 
-                        {{-- <div class="col-lg-4">
+                        <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('data-nascimento', 'Data de Nascimento') }}
-                                {{ Form::text('datanascimento', ['class' => 'form-control', 'id' => 'datanascimento']) }}
+                                {{ Form::text('datanascimento','', ['class' => 'form-control', 'id' => 'datanascimento']) }}
+                                
                             </div>
-                        </div> --}}
+                        </div>
 
                         {{-- <div class="col-lg-4">
                             <div class="form-group">
