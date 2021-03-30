@@ -206,9 +206,9 @@
 
                         <div class="col-lg-4">
                             <div class="form-group">
-                                @php
+                                {{-- @php
                                     if(isset($register)){$cellphone = $register['cellphone'];}elseif(isset($data['telefone-celular'])){$cellphone = $data['telefone-celular'];}else{$cellphone = null;}
-                                @endphp
+                                @endphp --}}
                                 {{ Form::label('telefone-celular', 'Telefone Celular') }}
                                 {{ Form::text('telefone-celular', $cellphone, array_merge(['class' => 'form-control', 'id' => 'telefone-celular'])) }}
                             </div>
