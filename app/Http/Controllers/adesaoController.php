@@ -51,7 +51,7 @@ class adesaoController extends Controller
                 return redirect('adesao/ncontrato');
             }
         }
-        //dd($products);
+        dd($products);
         foreach ($products as $p){
 
             $product[$p['id']] = $p;
