@@ -91,7 +91,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-4">
+                        {{-- <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('rg', 'RG') }}
                                 {{ Form::text('rg', $data['rg'], array_merge(['class' => 'form-control'])) }}
@@ -300,7 +300,7 @@
 
                         <div class="col-md-12">
                             <button type="submit" class="btn btn-success btn-block">Continuar</button>
-                        </div>
+                        </div> --}}
 
                         {!! Form::close() !!}
 
