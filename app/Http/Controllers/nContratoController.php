@@ -21,10 +21,11 @@ class nContratoController extends Controller
     public function consultContract(Request $request)
     {
         
-        dd("teste");
-        
+           
         $code = $request->input('code');
         $contrato = Contract::where('code', $code)->get()->first();
+
+        dd($contrato);
         if(isset($contrato->valid) and !empty($contrato->valid)){
             $request->session()->flush();
             $request->session()->put(['date_inicio' => date('Y-m-d H:i:s')]);
