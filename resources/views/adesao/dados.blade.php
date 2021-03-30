@@ -189,9 +189,9 @@
 
                         <div class="col-lg-4">
                             <div class="form-group">
-                                @php
+                                {{-- @php
                                     if(isset($register)){$email = $register['email'];}elseif(isset($data['email'])){$email = $data['email'];}else{$email = null;}
-                                @endphp
+                                @endphp --}}
                                 {{ Form::label('email', 'E-mail') }}
                                 {{ Form::email('email', $email, array_merge(['class' => 'form-control', 'id' => 'email'])) }}
                             </div>
@@ -200,7 +200,7 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('telefone-residencial', 'Telefone Residencial') }}
-                                {{ Form::text('telefone-residencial', $data['telefone-residencial'], array_merge(['class' => 'form-control', 'id' => 'telefone-residencial'])) }}
+                                {{ Form::text('telefone-residencial', '', array_merge(['class' => 'form-control', 'id' => 'telefone-residencial'])) }}
                             </div>
                         </div>
 
