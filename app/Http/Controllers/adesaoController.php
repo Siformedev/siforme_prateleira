@@ -51,7 +51,7 @@ class adesaoController extends Controller
                 return redirect('adesao/ncontrato');
             }
         }
-        dd($products);
+        //dd($products);
         foreach ($products as $p){
 
             $product[$p['id']] = $p;
@@ -114,6 +114,8 @@ class adesaoController extends Controller
         foreach ($periodosString as $periodoString){
             $periodos[$periodoString] = ConfigApp::Periodos()[$periodoString];
         }
+
+        dd($periodos);
 
         return view('adesao.contrato', compact('contrato','mes', 'courses', 'data', 'periodos', 'fases', 'product', 'register'));
     }
