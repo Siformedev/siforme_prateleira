@@ -95,11 +95,10 @@
                        <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('rg', 'RG') }}
-                                {{ Form::text('rg', $data['rg'], array_merge(['class' => 'form-control'])) }}
+                                {{ Form::text('rg','', array_merge(['class' => 'form-control'])) }}
                             </div>
                         </div>
 
-                          {{--
 
                         <div class="clearfix"></div>
                         <hr>
@@ -123,49 +122,49 @@
                         <div class="col-lg-3">
                             <div class="form-group">
                                 {{ Form::label('cep', 'CEP') }}
-                                {{ Form::text('cep', $data['cep'], array_merge(['class' => 'form-control', 'id' => 'cep'])) }}
+                                {{ Form::text('cep','', array_merge(['class' => 'form-control', 'id' => 'cep'])) }}
                             </div>
                         </div>
 
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('logradouro', 'Endereço') }}
-                                {{ Form::text('logradouro', $data['logradouro'], array_merge(['class' => 'form-control', 'id' => 'logradouro'])) }}
+                                {{ Form::text('logradouro','', array_merge(['class' => 'form-control', 'id' => 'logradouro'])) }}
                             </div>
                         </div>
 
                         <div class="col-lg-1">
                             <div class="form-group">
                                 {{ Form::label('numero', 'Número') }}
-                                {{ Form::text('numero', $data['numero'], array_merge(['class' => 'form-control', 'id' => 'numero'])) }}
+                                {{ Form::text('numero','', array_merge(['class' => 'form-control', 'id' => 'numero'])) }}
                             </div>
                         </div>
 
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('complemento', 'Complemento') }}
-                                {{ Form::text('complemento', $data['complemento'], array_merge(['class' => 'form-control', 'id' => 'complemento'])) }}
+                                {{ Form::text('complemento','', array_merge(['class' => 'form-control', 'id' => 'complemento'])) }}
                             </div>
                         </div>
 
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('bairro', 'Bairro') }}
-                                {{ Form::text('bairro', $data['bairro'], array_merge(['class' => 'form-control', 'id' => 'bairro'])) }}
+                                {{ Form::text('bairro','', array_merge(['class' => 'form-control', 'id' => 'bairro'])) }}
                             </div>
                         </div>
 
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('cidade', 'Cidade') }}
-                                {{ Form::text('cidade', $data['cidade'], array_merge(['class' => 'form-control', 'id' => 'cidade'])) }}
+                                {{ Form::text('cidade','', array_merge(['class' => 'form-control', 'id' => 'cidade'])) }}
                             </div>
                         </div>
 
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('estado', 'Estado') }}
-                                {{ Form::text('estado', $data['estado'], array_merge(['class' => 'form-control', 'id' => 'estado','maxlength' => '2'])) }}
+                                {{ Form::text('estado','', array_merge(['class' => 'form-control', 'id' => 'estado','maxlength' => '2'])) }}
                             </div>
                         </div>
 
