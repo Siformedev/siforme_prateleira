@@ -80,25 +80,23 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('sexo', 'Sexo') }}
-                                {{ Form::select('sexo', ['s' => 'Selecione...', 'M' => 'Masculino', 'F'=> 'Feminino'], array_merge(['class' => 'form-control', 'id' => 'cpf'])) }}
+                                {{ Form::select('sexo', ['' => 'Selecione...', 'M' => 'Masculino', 'F'=> 'Feminino'], $data['sexo'], array_merge(['class' => 'form-control', 'id' => 'cpf'])) }}
                             </div>
                         </div>
 
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('data-nascimento', 'Data de Nascimento') }}
-                                {{ Form::text('datanascimento','', ['class' => 'form-control', 'id' => 'datanascimento']) }}
-                                
+                                {{ Form::text('datanascimento', $data['datanascimento'], array_merge(['class' => 'form-control', 'id' => 'datanascimento'])) }}
                             </div>
                         </div>
 
-                       <div class="col-lg-4">
+                        <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('rg', 'RG') }}
-                                {{ Form::text('rg','', array_merge(['class' => 'form-control'])) }}
+                                {{ Form::text('rg', $data['rg'], array_merge(['class' => 'form-control'])) }}
                             </div>
                         </div>
-
 
                         <div class="clearfix"></div>
                         <hr>
@@ -122,49 +120,49 @@
                         <div class="col-lg-3">
                             <div class="form-group">
                                 {{ Form::label('cep', 'CEP') }}
-                                {{ Form::text('cep','', array_merge(['class' => 'form-control', 'id' => 'cep'])) }}
+                                {{ Form::text('cep', $data['cep'], array_merge(['class' => 'form-control', 'id' => 'cep'])) }}
                             </div>
                         </div>
 
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('logradouro', 'Endereço') }}
-                                {{ Form::text('logradouro','', array_merge(['class' => 'form-control', 'id' => 'logradouro'])) }}
+                                {{ Form::text('logradouro', $data['logradouro'], array_merge(['class' => 'form-control', 'id' => 'logradouro'])) }}
                             </div>
                         </div>
 
                         <div class="col-lg-1">
                             <div class="form-group">
                                 {{ Form::label('numero', 'Número') }}
-                                {{ Form::text('numero','', array_merge(['class' => 'form-control', 'id' => 'numero'])) }}
+                                {{ Form::text('numero', $data['numero'], array_merge(['class' => 'form-control', 'id' => 'numero'])) }}
                             </div>
                         </div>
 
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('complemento', 'Complemento') }}
-                                {{ Form::text('complemento','', array_merge(['class' => 'form-control', 'id' => 'complemento'])) }}
+                                {{ Form::text('complemento', $data['complemento'], array_merge(['class' => 'form-control', 'id' => 'complemento'])) }}
                             </div>
                         </div>
 
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('bairro', 'Bairro') }}
-                                {{ Form::text('bairro','', array_merge(['class' => 'form-control', 'id' => 'bairro'])) }}
+                                {{ Form::text('bairro', $data['bairro'], array_merge(['class' => 'form-control', 'id' => 'bairro'])) }}
                             </div>
                         </div>
 
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('cidade', 'Cidade') }}
-                                {{ Form::text('cidade','', array_merge(['class' => 'form-control', 'id' => 'cidade'])) }}
+                                {{ Form::text('cidade', $data['cidade'], array_merge(['class' => 'form-control', 'id' => 'cidade'])) }}
                             </div>
                         </div>
 
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('estado', 'Estado') }}
-                                {{ Form::text('estado','', array_merge(['class' => 'form-control', 'id' => 'estado','maxlength' => '2'])) }}
+                                {{ Form::text('estado', $data['estado'], array_merge(['class' => 'form-control', 'id' => 'estado','maxlength' => '2'])) }}
                             </div>
                         </div>
 
@@ -189,9 +187,9 @@
 
                         <div class="col-lg-4">
                             <div class="form-group">
-                                {{-- @php
+                                @php
                                     if(isset($register)){$email = $register['email'];}elseif(isset($data['email'])){$email = $data['email'];}else{$email = null;}
-                                @endphp --}}
+                                @endphp
                                 {{ Form::label('email', 'E-mail') }}
                                 {{ Form::email('email', $email, array_merge(['class' => 'form-control', 'id' => 'email'])) }}
                             </div>
@@ -200,59 +198,59 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('telefone-residencial', 'Telefone Residencial') }}
-                                {{ Form::text('telefone-residencial', '', array_merge(['class' => 'form-control', 'id' => 'telefone-residencial'])) }}
+                                {{ Form::text('telefone-residencial', $data['telefone-residencial'], array_merge(['class' => 'form-control', 'id' => 'telefone-residencial'])) }}
                             </div>
                         </div>
 
                         <div class="col-lg-4">
                             <div class="form-group">
-                                {{-- @php
+                                @php
                                     if(isset($register)){$cellphone = $register['cellphone'];}elseif(isset($data['telefone-celular'])){$cellphone = $data['telefone-celular'];}else{$cellphone = null;}
-                                @endphp --}}
+                                @endphp
                                 {{ Form::label('telefone-celular', 'Telefone Celular') }}
-                                {{ Form::text('telefone-celular', '', array_merge(['class' => 'form-control', 'id' => 'telefone-celular'])) }}
+                                {{ Form::text('telefone-celular', $cellphone, array_merge(['class' => 'form-control', 'id' => 'telefone-celular'])) }}
                             </div>
                         </div>
 
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('nome_do_pai', 'Nome do Pai') }}
-                                {{ Form::text('nome_do_pai', '', array_merge(['class' => 'form-control', 'id' => 'nome_do_pai'])) }}
+                                {{ Form::text('nome_do_pai', $data['nome_do_pai'], array_merge(['class' => 'form-control', 'id' => 'nome_do_pai'])) }}
                             </div>
                         </div>
 
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('email_do_pai', 'E-mail do Pai') }}
-                                {{ Form::email('email_do_pai', '', array_merge(['class' => 'form-control', 'id' => 'email_do_pai'])) }}
+                                {{ Form::email('email_do_pai', $data['email_do_pai'], array_merge(['class' => 'form-control', 'id' => 'email_do_pai'])) }}
                             </div>
                         </div>
 
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('telefone_celular_pai', 'Telefone Celular do Pai') }}
-                                {{ Form::text('telefone_celular_pai', '', array_merge(['class' => 'form-control', 'id' => 'telefone_celular_pai'])) }}
+                                {{ Form::text('telefone_celular_pai', $data['telefone_celular_pai'], array_merge(['class' => 'form-control', 'id' => 'telefone_celular_pai'])) }}
                             </div>
                         </div>
 
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('nome_da_mae', 'Nome da Mãe') }}
-                                {{ Form::text('nome_da_mae', '', array_merge(['class' => 'form-control', 'id' => 'nome_da_mae'])) }}
+                                {{ Form::text('nome_da_mae', $data['nome_da_mae'], array_merge(['class' => 'form-control', 'id' => 'nome_da_mae'])) }}
                             </div>
                         </div>
 
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('email_da_mae', 'E-mail da Mãe') }}
-                                {{ Form::email('email_da_mae', '', array_merge(['class' => 'form-control', 'id' => 'email_da_mae'])) }}
+                                {{ Form::email('email_da_mae', $data['email_da_mae'], array_merge(['class' => 'form-control', 'id' => 'email_da_mae'])) }}
                             </div>
                         </div>
 
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('telefone_celular_mae', 'Telefone Celular da Mãe') }}
-                                {{ Form::text('telefone_celular_mae', '', array_merge(['class' => 'form-control', 'id' => 'telefone_celular_mae'])) }}
+                                {{ Form::text('telefone_celular_mae', $data['telefone_celular_mae'], array_merge(['class' => 'form-control', 'id' => 'telefone_celular_mae'])) }}
                             </div>
                         </div>
 
@@ -279,21 +277,21 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('altura', 'Altura') }}
-                                {{ Form::select('altura', $i_altura, '', array_merge(['class' => 'form-control', 'id' => 'email_do_pai'])) }}
+                                {{ Form::select('altura', $i_altura, $data['altura'], array_merge(['class' => 'form-control', 'id' => 'email_do_pai'])) }}
                             </div>
                         </div>
 
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('camiseta', 'Camiseta') }}
-                                {{ Form::select('camiseta', $camiseta, '', array_merge(['class' => 'form-control', 'id' => 'camiseta'])) }}
+                                {{ Form::select('camiseta', $camiseta, $data['camiseta'], array_merge(['class' => 'form-control', 'id' => 'camiseta'])) }}
                             </div>
                         </div>
 
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('calcado', 'Calçado') }}
-                                {{ Form::select('calcado', $calcado, '', array_merge(['class' => 'form-control', 'id' => 'calcado'])) }}
+                                {{ Form::select('calcado', $calcado, $data['calcado'], array_merge(['class' => 'form-control', 'id' => 'calcado'])) }}
                             </div>
                         </div>
 
@@ -302,7 +300,7 @@
 
                         <div class="col-md-12">
                             <button type="submit" class="btn btn-success btn-block">Continuar</button>
-                        </div> --}}
+                        </div>
 
                         {!! Form::close() !!}
 
