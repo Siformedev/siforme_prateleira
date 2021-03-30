@@ -80,11 +80,11 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('sexo', 'Sexo') }}
-                                {{ Form::select('sexo', ['' => 'Selecione...', 'M' => 'Masculino', 'F'=> 'Feminino'], $data['sexo'], array_merge(['class' => 'form-control', 'id' => 'cpf'])) }}
+                                {{ Form::select('sexo', ['s' => 'Selecione...', 'M' => 'Masculino', 'F'=> 'Feminino'], $data['sexo'], array_merge(['class' => 'form-control', 'id' => 'cpf'])) }}
                             </div>
                         </div>
 
-                        {{-- <div class="col-lg-4">
+                        <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('data-nascimento', 'Data de Nascimento') }}
                                 {{ Form::text('datanascimento', $data['datanascimento'], array_merge(['class' => 'form-control', 'id' => 'datanascimento'])) }}
@@ -300,7 +300,7 @@
 
                         <div class="col-md-12">
                             <button type="submit" class="btn btn-success btn-block">Continuar</button>
-                        </div> --}}
+                        </div>
 
                         {!! Form::close() !!}
 
