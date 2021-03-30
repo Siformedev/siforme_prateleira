@@ -87,17 +87,19 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('data-nascimento', 'Data de Nascimento') }}
-                                {{ Form::text('datanascimento', $data['datanascimento'], ['class' => 'form-control', 'id' => 'datanascimento']) }}
+                                {{ Form::text('datanascimento','', ['class' => 'form-control', 'id' => 'datanascimento']) }}
                                 
                             </div>
                         </div>
 
-                        {{-- <div class="col-lg-4">
+                       <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('rg', 'RG') }}
                                 {{ Form::text('rg', $data['rg'], array_merge(['class' => 'form-control'])) }}
                             </div>
                         </div>
+
+                          {{--
 
                         <div class="clearfix"></div>
                         <hr>
