@@ -87,7 +87,7 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('data-nascimento', 'Data de Nascimento') }}
-                                {{ Form::text('datanascimento', $data['datanascimento'], array_merge(['class' => 'form-control', 'id' => 'datanascimento'])) }}
+                                {{ Form::text('datanascimento', array_merge(['class' => 'form-control', 'id' => 'datanascimento'])) }}
                             </div>
                         </div>
 
