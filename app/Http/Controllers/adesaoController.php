@@ -369,8 +369,7 @@ class adesaoController extends Controller
         $paytype = $request->get("paytype");
         $parcelas_prod = $request->get("parcelas_prod_");
         
-        dd($parcelas_prod);
-        
+                
         foreach ($parcelas_prod as $key => $value){
             if($value <= 0){
                 \Session::flash('erro_parcelamento', 'Favor escolha um parcelamento');
