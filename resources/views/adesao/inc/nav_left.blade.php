@@ -1,9 +1,9 @@
 <nav class="left-menu" left-menu="">
     <div class="logo-container">
         <a href="index.html" class="logo">
-            <img src="{{ asset('assets/common/img/logo_maximus.png') }}" alt="{{env('APP_NAME')}} LOGO">
+            <img src="{{ env('APP_LOGO') }}" alt="{{env('APP_NAME')}} LOGO">
             
-            <img class="logo-inverse" src="{{ asset('assets/common/img/logo-inverse.png') }}" alt="Clean UI Admin Template">
+            <img class="logo-inverse" src="{{ env('APP_LOGO') }}" alt="Clean UI Admin Template">
         </a>
     </div>
     <div class="left-menu-inner scroll-pane jspScrollable" tabindex="0"

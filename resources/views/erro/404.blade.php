@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="logo">
-                            <img src="../assets/common/img/logo_maximus.jpg" alt="{{env('APP_NAME')}}" />
+                            <img src="{{ env('APP_LOGO') }}" alt="{{env('APP_NAME')}}" />
                         </div>
                     </div>
                     <div class="col-lg-8">

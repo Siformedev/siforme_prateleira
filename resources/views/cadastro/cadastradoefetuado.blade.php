@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-12 text-center">
                         <div>
-                            <img src="../assets/common/img/logo.png" alt="{{env('APP_NAME')}}" style="height: 50px;" />
+                            <img src="{{ env('APP_LOGO') }}" alt="{{env('APP_NAME')}}" style="height: 50px;" />
                         </div>
                     </div>
                     <div class="col-lg-8">

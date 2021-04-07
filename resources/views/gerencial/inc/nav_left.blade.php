@@ -2,7 +2,7 @@
     <div class="logo-container" style="background: #ffffff">
         <a>
             
-            <img src="{{ asset('assets/common/img/logo_maximus.png') }}" class="width-150" alt="{{env('APP_NAME')}} LOGO">
+            <img src="{{ env('APP_LOGO') }}" class="width-150" alt="{{env('APP_NAME')}} LOGO">
 
             
         </a>
