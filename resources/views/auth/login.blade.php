@@ -9,7 +9,8 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="logo">
-                            <img src="../assets/common/img/logo_maximus.png" alt="SIFORME" /> 
+                            <img src="{{ env('APP_LOGO') }}" alt="SIFORME" /> 
+
                         </div>
                     </div>
                     <div class="col-lg-8">
