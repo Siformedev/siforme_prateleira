@@ -98,7 +98,7 @@
                     <div class="logo">
                         <a href="">
 {{--                            <img src="{{ asset('assets/common/img/logo.png') }}" alt="{{env('APP_NAME')}}" />--}}
-<img class="height-50 logo-mobile" src="{{ env('APP_LOGO') }}" alt="{{env('APP_NAME')}} LOGO">
+                                <img src="{{ env('APP_LOGO') }}" alt="{{env('APP_NAME')}} LOGO">
 
                         </a>
                     </div>
