@@ -427,7 +427,7 @@ class adesaoController extends Controller
                 $request->session()->put(['adesao_ok_id' => $formando->id]);
 
                 $fromMail = 'naoresponda@siforme.com.br';
-                $fromName = 'Arrecadeei - Formatura do Futuro';
+                $fromName = 'Siforme';
                 $dataEmail = $formando->toArray();
                 $dataEmail['senha'] = $senha;
 
