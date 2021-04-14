@@ -9,9 +9,9 @@
                 <br>
                 <br>
                 <table width="583" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
+                    {{-- <tr>
                         <td align="left" valign="top" bgcolor="#FFFFFF" style="background-color:#FFFFFF;"><img src="https://agenciapni.com.br/img_emkt/images/header.jpg" width="583" height="118"></td>
-                    </tr>
+                    </tr> --}}
                     <tr>
                         <td align="left" valign="top" bgcolor="#FFFFFF" style="background-color:#FFFFFF;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
@@ -122,7 +122,7 @@
                                                         <br>
                                                         <br>
                                                     </p>
-                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    {{-- <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                         <tr>
                                                             <td width="13%"><b><img src="https://agenciapni.com.br/img_emkt/images/facebook.gif" alt="" width="24" height="23"></b></td>
                                                             <td width="87%" style="font-size:11px; color:#525252; font-family:Arial, Helvetica, sans-serif;"><p><b>Data e hora: {{ date('d/m/Y H:i:s') }}<br>
@@ -130,7 +130,7 @@
                                                                         AGÊNCIA PINGO NO I<br>
                                                                         (11) 4221-9054 (segunda a sexta: 09h00 às 18h00)Contato: atendimento@agenciapni.com.br</b></p></td>
                                                         </tr>
-                                                    </table></td>
+                                                    </table></td> --}}
                                             </tr>
                                             <tr>
                                                 <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#525252;">&nbsp;</td>
@@ -140,7 +140,7 @@
                                 </tr>
                             </table></td>
                     </tr>
-                    <tr>
+                    {{-- <tr>
                         <td align="left" valign="top" bgcolor="#3d90bd" style="background-color:#3d90bd;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="35">&nbsp;</td>
@@ -149,7 +149,7 @@
                                     <td width="35">&nbsp;</td>
                                 </tr>
                             </table></td>
-                    </tr>
+                    </tr> --}}
                 </table>
                 <br>
                 <br></td>
