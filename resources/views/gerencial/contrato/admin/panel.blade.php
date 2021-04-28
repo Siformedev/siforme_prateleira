@@ -1,10 +1,7 @@
 @extends('gerencial.inc.layout')
-
 @section('content')
-
     <section class="page-content">
         <div class="page-content-inner">
-
             <!--  -->
             <section class="panel">
                 <div class="panel-heading">
@@ -22,7 +19,6 @@
                 </div>
             </section>
             <!-- End  -->
-
             <!--  -->
             <section class="panel">
                 <div class="panel-body">
@@ -58,12 +54,11 @@
                             </a>
                         </div>
                         <div class="col-md-6 col-lg-4 col-xl-3">
-                            <a href="" class="btn btn-default font-size-80 width-250" style="background: #795548; margin-bottom: 30px;">
+                            <a href="{{route('gerencial.contrato.contratocomissao', ['contract' => $contract->id])}}" class="btn btn-default font-size-80 width-250" style="background: #795548; margin-bottom: 30px;">
                                 <i class="icmn icmn-file-empty"></i>
                                 <p class="font-size-20">Contrato Comissão</p>
                             </a>
                         </div>
-
                         <div class="col-md-6 col-lg-4 col-xl-3">
                             <a href="" class="btn btn-default font-size-80 width-250" style="background: #ff5722; margin-bottom: 30px;">
                                 <i class="icmn icmn-bullhorn"></i>
@@ -71,13 +66,13 @@
                             </a>
                         </div>
                         <div class="col-md-6 col-lg-4 col-xl-3">
-                            <a href="" class="btn btn-default font-size-80 width-250" style="background: #9c27b0; margin-bottom: 30px;">
+                            <a href="{{route('gerencial.contrato.budget', ['contract' => $contract->id])}}" class="btn btn-default font-size-80 width-250" style="background: #9c27b0; margin-bottom: 30px;">
                                 <i class="icmn icmn-file-presentation2"></i>
                                 <p class="font-size-20">Orçamento</p>
                             </a>
                         </div>
                         <div class="col-md-6 col-lg-4 col-xl-3">
-                            <a href="" class="btn btn-default font-size-80 width-250" style="background: #00bcd4; margin-bottom: 30px;">
+                            <a href="{{route('gerencial.contrato.brindes', ['contract' => $contract->id])}}" class="btn btn-default font-size-80 width-250" style="background: #00bcd4; margin-bottom: 30px;">
                                 <i class="icmn icmn-bag2"></i>
                                 <p class="font-size-20">Brindes</p>
                             </a>
@@ -92,19 +87,12 @@
                 </div>
             </section>
             <!-- End  -->
-
-
-
         </div>
-
         <!-- Page Scripts -->
         <script>
             $(function(){
-
             });
         </script>
         <!-- End Page Scripts -->
-
     </section>
-
 @endsection

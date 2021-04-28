@@ -10,3 +10,4 @@ Homestead.yaml
 /public/temp/img/*
 /public/upload/img/perfil/*
 .DS_Store
+/nbproject/private/
