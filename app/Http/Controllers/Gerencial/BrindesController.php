@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Gerencial;
 
 use App\Brindes;
+use App\Brindesretirados;
+use App\Contract;
 use App\Http\Controllers\Controller;
 use Storage;
 use File;
@@ -12,7 +14,7 @@ class BrindesController extends Controller {
 
     public function index($contract) {
         $model = new Brindes();
-      
+        
         return view('gerencial.brindes.index', ['contract' => $contract, 'budgets' => $model->where('contract_id', $contract)->get()]);
     }
 
@@ -22,13 +24,23 @@ class BrindesController extends Controller {
         session()->flash('sucesso', true);
         return redirect(url('/gerencial/brindes/' . $objeto->contract_id . '/index'));
     }
+    
+    public function retirarbrinde($idbrinde,$idformando,$contractid){
+        $model=new Brindesretirados();
+        $model->brinde_id=$idbrinde;
+        $model->forming_id=$idformando;
+        $model->save();
+        session()->flash('sucesso', true);
+        return redirect(url('/gerencial/brindes/create/' .$idbrinde."/". $contractid));
+    }
 
     public function create($id = 0, int $contract) {
         $objeto = new Brindes();
         if ($id) {
             $objeto = $objeto->find($id);
         }
-        return view('gerencial.brindes.create', ['idcontract' => $contract, 'id' => $id, 'objeto' => $objeto]);
+        $contrato = (new Contract())->find($contract);
+        return view('gerencial.brindes.create', ['idcontract' => $contract, 'id' => $id, 'objeto' => $objeto,'formings'=>$contrato->formings->where('status', 1)]);
     }
 
     public function store($idcontract, $idantigo, Request $request) {

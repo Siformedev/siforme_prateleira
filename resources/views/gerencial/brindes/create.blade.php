@@ -2,7 +2,12 @@
 
 @section('content')
 
+<?php
 
+use App\Brindesretirados;
+
+$modelBrindes = new Brindesretirados();
+?>
 <section class="page-content">
     <div class="page-content-inner">
 
@@ -79,8 +84,52 @@
 
             </div>
         </section>
+        @if($objeto)
+        <section class="panel">
+            <div class="panel-heading">
+                <div class="col-md-10">
+                    <h3>Retirada de Brindes</h3>
+                </div>
 
-
+                <hr>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-hover nowrap dataTable dtr-inline" id="table1">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nome</th>
+                                    <th>Sobrenome</th>
+                                    <th></th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($formings as $formando)
+                                <tr>
+                                    <td>
+                                        <span class="font-size-16 font-weight-bold">{{$formando->id}}</span>
+                                    </td>
+                                    <td>{{$formando->nome}}</td>
+                                    <td>{{$formando->sobrenome}}</td>
+                                    <td>
+                                        <?php if (!$modelBrindes->procuraBrindeRetiado($objeto->id,$formando->id)) { ?>
+                                            <a href="{{route('gerencial.brindesretirados.create', ['brinde'=>$objeto->id,'formando' => $formando->id,'contract_id'=>$objeto->contract_id])}}" class="btn btn-secondary btn-block"><i class="fa fa-check"></i> Marcar como retirado</a>
+                                        <?php } else { ?>
+                                            Brinde Retirado
+                                        <?php } ?>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        @endif
 
     </div>
 </section>

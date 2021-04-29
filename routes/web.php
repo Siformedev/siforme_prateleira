@@ -153,7 +153,7 @@ Route::group(['prefix' => 'gerencial', 'as' => 'gerencial.', 'middleware' => ['a
     Route::get('contratocomissao/create/{id}/{contract}', ['uses' => 'Gerencial\ContratocomissaoController@create', 'as' => 'contratocomissao.create']);
     Route::get('contratocomissao/{contract}/index', ['uses' => 'Gerencial\ContratocomissaoController@index', 'as' => 'contrato.contratocomissao']);
     
-    
+    Route::get('brindesretirados/create/{brinde}/{formando}/{contractid}', ['uses' => 'Gerencial\BrindesController@retirarbrinde', 'as' => 'brindesretirados.create']);
     
     Route::get('contratos', ['uses' => 'Gerencial\ContratoController@index', 'as' => 'contratos']);
     Route::get('contrato/create', ['uses' => 'Gerencial\ContratoController@create', 'as' => 'contrato.create']);
