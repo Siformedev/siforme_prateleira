@@ -1,10 +1,14 @@
 <nav class="left-menu">
     <div class="logo-container" style="background: #ffffff">
         <a>
+<<<<<<< HEAD
             
             <img src="{{ env('APP_LOGO') }}" class="width-150" alt="{{env('APP_NAME')}} LOGO">
 
             
+=======
+            <img src="{{ asset('assets/common/img/logo_maximus.png') }}"  alt="{{env('APP_NAME')}} LOGO">  
+>>>>>>> 3f7c32a989b44f59ae5986e283f2a40c5c367cf3
         </a>
     </div>
     <div class="left-menu-inner scroll-pane jspScrollable" tabindex="0"
