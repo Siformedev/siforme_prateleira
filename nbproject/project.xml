@@ -3,7 +3,11 @@
     <type>org.netbeans.modules.php.project</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/php-project/1">
+<<<<<<< HEAD
             <name>laravel</name>
+=======
+            <name>SiformePrateleira</name>
+>>>>>>> 26238e8649511504a005fabe3b3cd5bdb1808e50
         </data>
     </configuration>
 </project>

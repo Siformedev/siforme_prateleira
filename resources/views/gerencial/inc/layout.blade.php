@@ -7,7 +7,7 @@
 <body>
 
 @yield('content')
-
+@include('gerencial.inc.footer')
 </body>
 
 @yield('script')

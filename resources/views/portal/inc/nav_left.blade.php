@@ -43,8 +43,18 @@
                     Álbum de Formatura
                 </a>
             </li>
-
-
+            <?php
+         
+            
+            ?>
+            @if( auth()->user()->userable->comissao)
+            <li @if($rota_menu == 'portal.orcamentos'){!! $css_active  !!}@endif>
+                <a class="left-menu-link" href="{{route('portal.orcamentos')}}">
+                    <i class="left-menu-link-icon icmn-arrow-right2"> </i>
+                    Orçamentos
+                </a>
+            </li>
+            @endif
             <li @if($rota_menu == 'portal.comprasextras'){!! $css_active !!}@endif>
                 <a class="left-menu-link" href="{{route('portal.comprasextras')}}">
                     <i class="left-menu-link-icon icmn-arrow-right2"></i>
@@ -70,12 +80,12 @@
             @endif
 
             @if( auth()->user()->userable->contract_id == 7 )
-                <li @if($rota_menu == 'portal.survey.index'){!! $css_active !!}@endif>
-                    <a class="left-menu-link" href="{{route('portal.survey.index')}}">
-                        <i class="left-menu-link-icon icmn-arrow-right2"></i>
-                        Enquete
-                    </a>
-                </li>
+            <li @if($rota_menu == 'portal.survey.index'){!! $css_active !!}@endif>
+                <a class="left-menu-link" href="{{route('portal.survey.index')}}">
+                    <i class="left-menu-link-icon icmn-arrow-right2"></i>
+                    Enquete
+                </a>
+            </li>
             @endif
 
             @if( auth()->user()->userable->contract_id == 7 )
