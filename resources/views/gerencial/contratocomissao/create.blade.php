@@ -13,7 +13,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-10">
-                        <h1>Cadastrar Orçamento</h1>
+                        <h1>Contrato Comissão</h1>
                     </div>
                     <div class="col-md-2">
                         <a href="javascript:window.history.back();" class="btn btn-info btn-block"><i class="icmn icmn-arrow-left"></i> Voltar</a>

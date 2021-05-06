@@ -136,11 +136,7 @@ Route::group(['prefix' => 'gerencial', 'as' => 'gerencial.', 'middleware' => ['a
     Route::get('formando/{forming}', ['uses' => 'Gerencial\FormandoAdminController@show', 'as' => 'formando.show']);
     Route::get('formando/extrato/{prod}', ['uses' => 'Gerencial\FormandoAdminController@showItem', 'as' => 'formando.show.item']);
     Route::get('formando/login/{forming}', ['uses' => 'Gerencial\FormandoAdminController@forceLogin', 'as' => 'formando.login']);
-<<<<<<< HEAD
-    
 
-
-=======
     Route::post('budget/store/{idcontract}/{id2}', ['uses' => 'Gerencial\BudgetController@store', 'as' => 'budget.store']);
     Route::get('budget/delete/{id}', ['uses' => 'Gerencial\BudgetController@delete', 'as' => 'budget.delete']);
     Route::get('budget/create/{id}/{contract}', ['uses' => 'Gerencial\BudgetController@create', 'as' => 'budget.create']);
@@ -163,7 +159,7 @@ Route::group(['prefix' => 'gerencial', 'as' => 'gerencial.', 'middleware' => ['a
     
     Route::get('brindesretirados/create/{brinde}/{formando}/{contractid}', ['uses' => 'Gerencial\BrindesController@retirarbrinde', 'as' => 'brindesretirados.create']);
     
->>>>>>> 26238e8649511504a005fabe3b3cd5bdb1808e50
+
     Route::get('contratos', ['uses' => 'Gerencial\ContratoController@index', 'as' => 'contratos']);
     Route::get('contrato/create', ['uses' => 'Gerencial\ContratoController@create', 'as' => 'contrato.create']);
     Route::get('contrato/{contract}/edit', ['uses' => 'Gerencial\ContratoController@edit', 'as' => 'contrato.edit']);

@@ -6,7 +6,7 @@
         <section class="panel">
             <div class="panel-heading">
                 <div class="col-md-10">
-                    <h3>Listagem de Orçamentos</h3>
+                    <h3>Contrato Comissão</h3>
                 </div>
                 <div class="col-md-2">
                     <a href="{{route('gerencial.contratocomissao.create',["id"=>0,"contract"=>$contract])}}" class="btn btn-success btn-block"><i class="icmn icmn-plus"></i> Novo</a>

@@ -1,13 +1,11 @@
 <nav class="left-menu" left-menu>
     <div class="logo-container">
         <a href="index.html" class="logo">
-<<<<<<< HEAD
+
             <img src="{{ env('APP_LOGO') }}" alt="SIFORME LOGO">
             <img class="logo-inverse" src="../assets/common/img/logo-inverse.png" alt="Clean UI Admin Template" />
-=======
-            {{-- <img src="{{ asset('assets/common/img/murano.PNG') }}" alt="SIFORME LOGO"> --}}
-            <img class="logo-inverse" src="../assets/common/img/logo_maximus.png" alt="Clean UI Admin Template" />
->>>>>>> 3f7c32a989b44f59ae5986e283f2a40c5c367cf3
+
+
         </a>
     </div>
     <div class="left-menu-inner scroll-pane jspScrollable" tabindex="0"
