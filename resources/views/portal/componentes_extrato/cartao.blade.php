@@ -11,7 +11,7 @@
                             <input type="text" pattern="[A-Z a-z]{1,32}" name="nome_cc"
                                 class="form-control cc-nome"
                                 title="Nome como esta no cartão, tudo em caixa alta" placeholder=""
-                                required="" value="Roberto da Silva Flor">
+                                required="">
                             <small class="text-muted">Nome completo, como mostrado no cartão.</small>
                             <div class="invalid-feedback">
                                 O nome que está no cartão é obrigatório.
@@ -21,7 +21,7 @@
                         <div class="col-md-3 mb-3">
                             <label for="cc-numero">Data de Nascimento</label>
                             <input type="text" name="data_nasc" class="form-control cc-data_nasc"
-                                placeholder="" required="" data-mask="00/00/0000" maxlength="11" value="01/06/1984">
+                                placeholder="" required="" data-mask="00/00/0000" maxlength="11">
                             <small class="text-muted">Dado do titular do Cartão</small>
                             <div class="invalid-feedback">
                             </div>
@@ -31,7 +31,7 @@
                             <input type="text" data-mask="000.000.000-00"
                                 pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}"
                                 title="Digite um CPF no formato: xxx.xxx.xxx-xx" name="cpf_tit"
-                                class="form-control cc-cpf" placeholder="" required="" value='31411005864'>
+                                class="form-control cc-cpf" placeholder="" required="">
                             <div class="invalid-feedback">
                             </div>
                         </div>
@@ -48,14 +48,14 @@
                         <div class="col-md-3 mb-4">
                             <label for="cc-expiracao">Data de expiração</label>
                             <input type="text" class="form-control cc-expiracao" data-mask="00/0000"
-                                maxlength="7" placeholder="" required="" value="12/2030">
+                                maxlength="7" placeholder="" required="">
                             <div class="invalid-feedback">
                                 Data de expiração é obrigatória.
                             </div>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="cc-cvv">CVV</label>
-                            <input type="text" class="form-control cc-cvv" placeholder="" required="" value="123">
+                            <input type="text" class="form-control cc-cvv" placeholder="" required="">
                             <div class="invalid-feedback">
                                 Código de segurança é obrigatório.
                             </div>
