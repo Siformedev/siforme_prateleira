@@ -158,7 +158,7 @@ Route::group(['prefix' => 'gerencial', 'as' => 'gerencial.', 'middleware' => ['a
     
     Route::get('brindesretirados/create/{brinde}/{formando}/{contractid}', ['uses' => 'Gerencial\BrindesController@retirarbrinde', 'as' => 'brindesretirados.create']);
     
->>>>>>> 26238e8649511504a005fabe3b3cd5bdb1808e50
+
     Route::get('contratos', ['uses' => 'Gerencial\ContratoController@index', 'as' => 'contratos']);
     Route::get('contrato/create', ['uses' => 'Gerencial\ContratoController@create', 'as' => 'contrato.create']);
     Route::get('contrato/{contract}/edit', ['uses' => 'Gerencial\ContratoController@edit', 'as' => 'contrato.edit']);
@@ -240,7 +240,7 @@ Route::group(['prefix' => 'api', 'as' => 'api.'], function () {
     Route::post('app/event/checkin/qr', ['uses' => 'API\AppController@EventCheckinQR', 'as' => 'app.ckeckin.ckeckin.qr']);
 });
 /*
- * WEBHOOK
+ * WEB HOOK 
  */
 Route::group(['prefix' => 'webhook', 'as' => 'webhook.'], function () {
     Route::get('geraboletos', ['uses' => 'WebhookController@geraBoletos', 'as' => 'geraboletos']);
