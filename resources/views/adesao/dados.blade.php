@@ -134,7 +134,7 @@
                         <div class="col-lg-1">
                             <div class="form-group">
                                 {{ Form::label('numero', 'Número') }}
-                                {{ Form::text('numero', $data['numero'], array_merge(['class' => 'form-control', 'id' => 'numero'])) }}
+                                {{ Form::text('numero', $data['numero'], array_merge(['class' => 'form-control', 'id' => 'numero','required'])) }}
                             </div>
                         </div>
 
