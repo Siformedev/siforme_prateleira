@@ -115,6 +115,7 @@ class adesaoController extends Controller
             $periodos[$periodoString] = ConfigApp::Periodos()[$periodoString];
         }
 
+     
         return view('adesao.contrato', compact('contrato','mes', 'courses', 'data', 'periodos', 'fases', 'product', 'register'));
     }
 
@@ -367,6 +368,8 @@ class adesaoController extends Controller
     {
         $paytype = $request->get("paytype");
         $parcelas_prod = $request->get("parcelas_prod_");
+        
+                
         foreach ($parcelas_prod as $key => $value){
             if($value <= 0){
                 \Session::flash('erro_parcelamento', 'Favor escolha um parcelamento');
@@ -423,8 +426,8 @@ class adesaoController extends Controller
                 $serviceProdutos->cadastraProduto($parcelas, $dia, $date_inicio, $formando->id, $contrato);
                 $request->session()->put(['adesao_ok_id' => $formando->id]);
 
-                $fromMail = 'naoresponda@arrecadeei.com.br';
-                $fromName = 'Arrecadeei - Formatura do Futuro';
+                $fromMail = 'naoresponda@siforme.com.br';
+                $fromName = 'Siforme';
                 $dataEmail = $formando->toArray();
                 $dataEmail['senha'] = $senha;
 

@@ -147,7 +147,7 @@
     <script>
         var submit = 0;
         $(function () {
-            $('#dia_pagamento').change(function () {
+            $('#dia_pagamento').value(function () {
                 var dia = $(this).val();
                 window.location = '/adesao/pagamento/'+dia+'?paytype=1';
             });
