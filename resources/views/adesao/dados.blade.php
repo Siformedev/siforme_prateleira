@@ -120,7 +120,7 @@
                         <div class="col-lg-3">
                             <div class="form-group">
                                 {{ Form::label('cep', 'CEP') }}
-                                {{ Form::text('cep', $data['cep'], array_merge(['class' => 'form-control', 'id' => 'cep'])) }}
+                                {{ Form::number('cep', $data['cep'], array_merge(['class' => 'form-control', 'id' => 'cep'])) }}
                             </div>
                         </div>
 
@@ -229,14 +229,14 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('telefone_celular_pai', 'Telefone Celular do Pai') }}
-                                {{ Form::text('telefone_celular_pai', $data['telefone_celular_pai'], array_merge(['class' => 'form-control', 'id' => 'telefone_celular_pai'])) }}
+                                {{ Form::number('telefone_celular_pai', $data['telefone_celular_pai'], array_merge(['class' => 'form-control', 'id' => 'telefone_celular_pai'])) }}
                             </div>
                         </div>
 
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('nome_da_mae', 'Nome da Mãe') }}
-                                {{ Form::text('nome_da_mae', $data['nome_da_mae'], array_merge(['class' => 'form-control', 'id' => 'nome_da_mae'])) }}
+                                {{ Form::number('nome_da_mae', $data['nome_da_mae'], array_merge(['class' => 'form-control', 'id' => 'nome_da_mae'])) }}
                             </div>
                         </div>
 

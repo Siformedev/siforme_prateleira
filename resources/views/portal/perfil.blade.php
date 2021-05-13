@@ -281,7 +281,7 @@
                                         <div class="col-lg-3">
                                             <div class="form-group">
                                                 {{ Form::label('cep', 'CEP') }}
-                                                {{ Form::text('cep', null, array_merge(['class' => 'form-control', 'id' => 'cep'])) }}
+                                                {{ Form::number('cep', null, array_merge(['class' => 'form-control', 'id' => 'cep'])) }}
                                             </div>
                                         </div>
 
@@ -385,7 +385,7 @@
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 {{ Form::label('telefone_celular_pai', 'Telefone Celular do Pai') }}
-                                                {{ Form::text('telefone_celular_pai', null, array_merge(['class' => 'form-control', 'id' => 'telefone_celular_pai'])) }}
+                                                {{ Form::number('telefone_celular_pai', null, array_merge(['class' => 'form-control', 'id' => 'telefone_celular_pai'])) }}
                                             </div>
                                         </div>
 
@@ -406,7 +406,7 @@
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 {{ Form::label('telefone_celular_mae', 'Telefone Celular da Mãe') }}
-                                                {{ Form::text('telefone_celular_mae', null, array_merge(['class' => 'form-control', 'id' => 'telefone_celular_mae'])) }}
+                                                {{ Form::number('telefone_celular_mae', null, array_merge(['class' => 'form-control', 'id' => 'telefone_celular_mae'])) }}
                                             </div>
                                         </div>
 
