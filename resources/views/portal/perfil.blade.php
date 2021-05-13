@@ -281,7 +281,7 @@
                                         <div class="col-lg-3">
                                             <div class="form-group">
                                                 {{ Form::label('cep', 'CEP') }}
-                                                {{ Form::number('cep', null, array_merge(['class' => 'form-control', 'id' => 'cep'])) }}
+                                                {{ Form::text('cep', null, array_merge(['class' => 'form-control', 'id' => 'cep'])) }}
                                             </div>
                                         </div>
 
