@@ -136,11 +136,6 @@ Route::group(['prefix' => 'gerencial', 'as' => 'gerencial.', 'middleware' => ['a
     Route::get('formando/{forming}', ['uses' => 'Gerencial\FormandoAdminController@show', 'as' => 'formando.show']);
     Route::get('formando/extrato/{prod}', ['uses' => 'Gerencial\FormandoAdminController@showItem', 'as' => 'formando.show.item']);
     Route::get('formando/login/{forming}', ['uses' => 'Gerencial\FormandoAdminController@forceLogin', 'as' => 'formando.login']);
-<<<<<<< HEAD
-    
-
-
-=======
     Route::post('budget/store/{idcontract}/{id2}', ['uses' => 'Gerencial\BudgetController@store', 'as' => 'budget.store']);
     Route::get('budget/delete/{id}', ['uses' => 'Gerencial\BudgetController@delete', 'as' => 'budget.delete']);
     Route::get('budget/create/{id}/{contract}', ['uses' => 'Gerencial\BudgetController@create', 'as' => 'budget.create']);
