@@ -40,7 +40,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="cc-numero">Número do cartão de crédito</label>
                             <input type="text" class="form-control cc-numero" placeholder=""
-                                required="" value="4111111111111111">
+                                required="">
                             <div class="invalid-feedback">
                                 O número do cartão de crédito é obrigatório.
                             </div>
