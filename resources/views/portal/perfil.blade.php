@@ -356,7 +356,8 @@
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 {{ Form::label('telefone-residencial', 'Telefone Residencial') }}
-                                                {{ Form::text('telefone_residencial', null, array_merge(['class' => 'form-control', 'id' => 'telefone-residencial'])) }}
+                                                {{ Form::number('telefone_residencial', null, array_merge(['class' => 'form-control', 'id' => 'telefone-residencial'])) }}
+                                                
                                             </div>
                                         </div>
 

@@ -198,7 +198,7 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('telefone-residencial', 'Telefone Residencial') }}
-                                {{ Form::text('telefone-residencial', $data['telefone-residencial'], array_merge(['class' => 'form-control', 'id' => 'telefone-residencial'])) }}
+                                {{ Form::number('telefone-residencial', $data['telefone-residencial'], array_merge(['class' => 'form-control', 'id' => 'telefone-residencial'])) }}
                             </div>
                         </div>
 
@@ -208,7 +208,7 @@
                                     if(isset($register)){$cellphone = $register['cellphone'];}elseif(isset($data['telefone-celular'])){$cellphone = $data['telefone-celular'];}else{$cellphone = null;}
                                 @endphp
                                 {{ Form::label('telefone-celular', 'Telefone Celular') }}
-                                {{ Form::text('telefone-celular', $cellphone, array_merge(['class' => 'form-control', 'id' => 'telefone-celular'])) }}
+                                {{ Form::number('telefone-celular', $cellphone, array_merge(['class' => 'form-control', 'id' => 'telefone-celular'])) }}
                             </div>
                         </div>
 
