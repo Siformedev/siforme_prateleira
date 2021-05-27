@@ -132,70 +132,77 @@
                             </thead>
                             <tbody>
                                 @foreach($parcelas as $parcela)
-                                @php
-                                $edit=false;
+                                <?php
+                               
+                                $edit = false;
                                 $sumpg = 0;
-                                if(isset($pagamentos[$parcela['id']])){
-                                $parc = $pagamentos[$parcela['id']];
-                                $sumpg = $parc->valor_pago;
+                                if (isset($pagamentos[$parcela['id']])) {
+                                    $parc = $pagamentos[$parcela['id']];
+                                    $sumpg = $parc->valor_pago;
                                 }
                                 // if($sumpg >= $parcela['valor']){
-                                if($parcela['status'] == 'Pago'){
-                                $actionParc = '<span class="label label-success">PAGO</span>';
-                            }elseif($sumpg <= 0){
-                            if(date('Y-m-d', strtotime($parcela['dt_vencimento'])) <= $dateLimit->format('Y-m-d')){
-                            if(date('Y-m-d', strtotime($parcela['dt_vencimento'])) < date('Y-m-d')){
-                            //$actionParc = '<span class="label label-warning" title="Seu boleto estará disponível 5 dias antes do vencimento" target="_blank">Emitindo seu boleto...</span>';
-                            $edit=true;
-                            $actionParc = '<span class="label label-danger" target="_blank">Vencida</span>';
-                            }else{
-                            $actionParc = '<span class="label label-warning" title="Seu boleto estará disponível 15 dias antes do vencimento">Disponível</span>';
-                            //$actionParc = '<span class="label label-warning" title="Seu boleto estará disponível 5 dias antes do vencimento" target="_blank">Emitindo seu boleto...</span>';
-                            }
-                            }else{
-                            if(date('Y-m-d', strtotime($parcela['dt_vencimento'])) < date('Y-m-d')){
-                            //$actionParc = '<span class="label label-warning" title="Seu boleto estará disponível 5 dias antes do vencimento" target="_blank">Emitindo seu boleto...</span>';
-                            $actionParc = '<span class="label label-danger">Vencida</span>';
-                            }else{
-                            $actionParc = '<span class="label label-primary" title="Seu boleto estará disponível 15 dias antes do vencimento">A Vencer</span>';
-                            $edit=true;
-                            }
-                            }
-                            }
-                            @endphp 
-                            <tr>
-                                @if ($parcela['invoice_id']=='01082B57-91C6-4069-94A6-FDDF8A922226')
-                                <td class="text-center">{{$parc}}</td>
-                                @endif
-                                <td class="text-center">{{$parcela['formandos_id']}}</td>
-                                <td class="text-center">{{$parcela['parcela_pagamento_id']}}</td>
-                                <td class="text-center">{{$parcela['parcela_id']}}</td>
-                                <td class="text-center">{{$parcela['invoice_id']}}</td>
-                                <td class="text-center">{{$parcela['status']}}</td>
-                                @if ($parcela['status']!='Pago' )
-                                <td class="text-center">-</td>  
-                                @else
-                                <td class="text-center">{{date('d/m/Y', strtotime($parcela['paid_at']))}}</td>   
-                                @endif
-                                <td class="text-center">{{date('d/m/Y', strtotime($parcela['dt_vencimento']))}}</td>
-                                <td class="text-center">{{number_format($parcela['valor'],2, ",", ".")}}</td>
-                                @if ($parcela['status']=='Pendente' || is_null($parcela['status']))
-                                <td class="text-center">{{number_format(0,2, ",", ".")}}</td>
-                                @else                                    
-                                <td class="text-center">{{number_format($parcela['valor_pago'],2, ",", ".")}}</td>
-                                @endif
-                                <td class="text-center"> {!! $actionParc !!} </td>
-                                <td> @if($edit)
+                                if ($parcela['status'] == 'Pago') {
+                                    $actionParc = '<span class="label label-success">PAGO</span>';
+                                } elseif ($sumpg <= 0) {
+                                    $edit = true;
+                                    if (date('Y-m-d', strtotime($parcela['dt_vencimento'])) <= $dateLimit->format('Y-m-d')) {
+                                        if (date('Y-m-d', strtotime($parcela['dt_vencimento'])) < date('Y-m-d')) {
+                                            //$actionParc = '<span class="label label-warning" title="Seu boleto estará disponível 5 dias antes do vencimento" target="_blank">Emitindo seu boleto...</span>';
+                                            
+                                            $actionParc = '<span class="label label-danger" target="_blank">Vencida</span>';
+                                        } else {
+                                            $edit = true;
+                                            $actionParc = '<span class="label label-warning" title="Seu boleto estará disponível 15 dias antes do vencimento">Disponível</span>';
+                                            //$actionParc = '<span class="label label-warning" title="Seu boleto estará disponível 5 dias antes do vencimento" target="_blank">Emitindo seu boleto...</span>';
+                                        }
+                                    } else {
+                                        if (date('Y-m-d', strtotime($parcela['dt_vencimento'])) < date('Y-m-d')) {
+                                            //$actionParc = '<span class="label label-warning" title="Seu boleto estará disponível 5 dias antes do vencimento" target="_blank">Emitindo seu boleto...</span>';
+                                            $actionParc = '<span class="label label-danger">Vencida</span>';
+                                        } else {
+                                            $actionParc = '<span class="label label-primary" title="Seu boleto estará disponível 15 dias antes do vencimento">A Vencer</span>';
+                                            $edit = true;
+                                        }
+                                    }
+                                }
+                                if (!($parcela['status'] == 'Pago')) {
+                                    $edit = true;
+                                    
+                                }
+                                ?>
+                                <tr>
+                                    @if ($parcela['invoice_id']=='01082B57-91C6-4069-94A6-FDDF8A922226')
+                                    <td class="text-center">{{$parc}}</td>
+                                    @endif
+                                    <td class="text-center">{{$parcela['formandos_id']}}</td>
+                                    <td class="text-center">{{$parcela['parcela_pagamento_id']}}</td>
+                                    <td class="text-center">{{$parcela['parcela_id']}}</td>
+                                    <td class="text-center">{{$parcela['invoice_id']}}</td>
+                                    <td class="text-center">{{$parcela['status']}}</td>
+                                    @if ($parcela['status']!='Pago' )
+                                    <td class="text-center">-</td>  
+                                    @else
+                                    <td class="text-center">{{date('d/m/Y', strtotime($parcela['paid_at']))}}</td>   
+                                    @endif
+                                    <td class="text-center">{{date('d/m/Y', strtotime($parcela['dt_vencimento']))}}</td>
+                                    <td class="text-center">{{number_format($parcela['valor'],2, ",", ".")}}</td>
+                                    @if ($parcela['status']=='Pendente' || is_null($parcela['status']))
+                                    <td class="text-center">{{number_format(0,2, ",", ".")}}</td>
+                                    @else                                    
+                                    <td class="text-center">{{number_format($parcela['valor_pago'],2, ",", ".")}}</td>
+                                    @endif
+                                    <td class="text-center"> {!! $actionParc !!} </td>
+                                    <td> @if($edit)
 
-                                    <a href="javascript:;" class="editparcela" data-identity="{{$parcela['idparcela']}}">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    <a href="javascript:;" class="removeparcela" data-identity="{{$parcela['idparcela']}}">
-                                        <i class="fa fa-remove"></i>
-                                    </a>
-                                    @endif</td>
-                            </tr>
-                            @endforeach
+                                        <a href="javascript:;" class="editparcela" data-identity="{{$parcela['idparcela']}}">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        <a href="javascript:;" class="removeparcela" data-identity="{{$parcela['idparcela']}}">
+                                            <i class="fa fa-remove"></i>
+                                        </a>
+                                        @endif</td>
+                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -237,7 +244,7 @@
     </div>
 </section>
 <script>
-    let prod=<?=$prod;?>;
+    let prod =<?= $prod; ?>;
     Jss = ['extrato'];
 </script>
 @endsection

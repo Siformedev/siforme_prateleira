@@ -22,6 +22,7 @@ class FormandoAdminController extends Controller {
     private $blockDifferentValue = true;
 
     public function index(Request $request) {
+         
         $search = $request->get('search');
         if (isset($search) && !empty($search)) {
             $formings = Forming::where('nome', 'like', "%{$search}%")->orWhere('sobrenome', 'like', "%{$search}%")->orWhere('cpf', 'like', "%{$search}%")->orWhere('email', 'like', "%{$search}%")->get();
@@ -130,6 +131,7 @@ class FormandoAdminController extends Controller {
     }
 
     public function show(Forming $forming) {
+       
         $contract = $forming->contract->id;
         $products = [];
         $prods = $forming->products->where('status', 1);
@@ -207,6 +209,7 @@ class FormandoAdminController extends Controller {
     }
 
     public function showItem(FormandoProdutosEServicos $prod) {
+       
         $contract = auth()->user()->userable->contract_id;
         $forming = Forming::find($prod->forming_id);
         $parcelas = FormandoProdutosParcelas::leftJoin('parcelas_pagamentos', function($join) {

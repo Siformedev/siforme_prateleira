@@ -58,7 +58,7 @@ if (typeof Jss !== "undefined") {
         $.getScript('/assets/common/js/scripts/' + elemento + ".js")
                 .done(function (script, textStatus) {
                 }).fail(function (jqxhr, settings, exception) {
-            alert("Houve um erro na requisição do script [" + repositoryJsUrl + elemento + ".js]");
+            alert("Houve um erro na requisição do script [" +  elemento + ".js]");
         });
     });
 }
