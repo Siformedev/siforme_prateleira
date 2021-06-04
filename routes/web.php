@@ -1,42 +1,41 @@
 <?php
 
 /*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+  |--------------------------------------------------------------------------
+  | Web Routes
+  |--------------------------------------------------------------------------
+  |
+  | Here is where you can register web routes for your application. These
+  | routes are loaded by the RouteServiceProvider within a group which
+  | contains the "web" middleware group. Now create something great!
+  |
+ */
 
 use Illuminate\Support\Facades\Auth;
 
-
-Route::group(['prefix'=>'/','middleware' => 'web'], function (){
+Route::group(['prefix' => '/', 'middleware' => 'web'], function () {
     //return redirect()->route('site.home');
-    /*SITE*/
+    /* SITE */
     Route::get('', ['uses' => 'SiteController@home', 'as' => 'site.home']);
-    Route::get('',['uses' => 'PortalController@home', 'as' => 'home']);
+    Route::get('', ['uses' => 'PortalController@home', 'as' => 'home']);
     Route::post('/contato', ['uses' => 'SiteController@contato', 'as' => 'site.contato']);
     Route::get('/simulacao', ['uses' => 'SiteController@simulacao', 'as' => 'site.simulacao']);
     Route::post('/simulacao', ['uses' => 'SiteController@simulacaoStore', 'as' => 'site.simulacao.store']);
 
-    Route::get('/autorizacao', function()
-    {
-        include public_path().'/auth_pseg.php';
+    Route::get('/autorizacao', function() {
+        include public_path() . '/auth_pseg.php';
     });
 
-    Route::get('/retorno', function()
-    {
-        include public_path().'/retorno_auth_pseg.php';
+    Route::get('/retorno', function() {
+        include public_path() . '/retorno_auth_pseg.php';
     });
 });
 
 
-
-/*TESTE*/
+Route::match(['get', 'post'], '/comissao/formandosadiplentes', 'ComissaoController@formandosadiplentes');
+Route::match(['get', 'post'], '/comissao/formandosinadiplentes', 'ComissaoController@formandosinadiplentes');
+Route::match(['get', 'post'], '/comissao/formandospendentes', 'ComissaoController@formandospendentes');
+/* TESTE */
 Route::get('teste/t1', ['uses' => 'TesteController@t1', 'as' => 'teste.t1']);
 Route::get('test/slack', ['uses' => 'TesteController@testSlack', 'as' => 'test.slack']);
 
@@ -57,10 +56,10 @@ Route::get('adesao/pagamento/{dia}', ['uses' => 'adesaoController@pagamento', 'a
 Route::post('adesao/vpagamento', ['uses' => 'adesaoController@validPagamento', 'as' => 'adesao.vpagamento']);
 Route::get('adesao/concluido', ['uses' => 'adesaoController@concluido', 'as' => 'adesao.concluido']);
 
-Route::group(['prefix'=>'portal','as' => 'portal.', 'middleware' => 'auth'], function (){
+Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => 'auth'], function () {
 
-    Route::get('consultaAtivaBoleto',['uses'=>'PortalController@consultaAtivaBoleto']);
-    Route::get('consultaTransacao/{invoice_id}',['uses'=>'PortalController@consultaTransacao']);
+    Route::get('consultaAtivaBoleto', ['uses' => 'PortalController@consultaAtivaBoleto']);
+    Route::get('consultaTransacao/{invoice_id}', ['uses' => 'PortalController@consultaTransacao']);
 
 
     Route::get('home', ['uses' => 'PortalController@home', 'as' => 'home']);
@@ -127,12 +126,11 @@ Route::group(['prefix'=>'portal','as' => 'portal.', 'middleware' => 'auth'], fun
     Route::post('survey/{survey}', ['uses' => 'PortalController@surveyAnswerStore', 'as' => 'survey.answer.store']);
 
     Route::get('identify', ['uses' => 'PortalController@identify', 'as' => 'identity']);
-
 });
 
 Route::get('raffle/number/{hash}', ['uses' => 'PortalController@raffleNumberHash', 'as' => 'raffle.number.hash']);
 
-Route::group(['prefix'=>'comissao','as' => 'comissao.', 'middleware' => ['auth', 'checkcomissao']], function (){
+Route::group(['prefix' => 'comissao', 'as' => 'comissao.', 'middleware' => ['auth', 'checkcomissao']], function () {
 
     Route::get('painel', ['uses' => 'ComissaoController@painel', 'as' => 'painel']);
 
@@ -166,9 +164,9 @@ Route::group(['prefix'=>'comissao','as' => 'comissao.', 'middleware' => ['auth',
     Route::get('lojinha/venda/print/{id}', ['uses' => 'ComissaoController@lojinhaPedidoImprimir', 'as' => 'lojinha.venda.print']);
 });
 
-Route::group(['prefix'=>'gerencial','as' => 'gerencial.', 'middleware' => ['auth', 'checkcollaborator']], function (){
+Route::group(['prefix' => 'gerencial', 'as' => 'gerencial.', 'middleware' => ['auth', 'checkcollaborator']], function () {
 
-    
+
 
     Route::get('collaborator/create', ['uses' => 'Gerencial\CollaboratorController@create', 'as' => 'collaborator.create']);
     Route::post('collaborator/store', ['uses' => 'Gerencial\CollaboratorController@store', 'as' => 'collaborator.store']);
@@ -189,9 +187,9 @@ Route::group(['prefix'=>'gerencial','as' => 'gerencial.', 'middleware' => ['auth
     Route::get('contrato/{contract}/edit', ['uses' => 'Gerencial\ContratoController@edit', 'as' => 'contrato.edit']);
     Route::post('contrato/store', ['uses' => 'Gerencial\ContratoController@store', 'as' => 'contrato.store']);
     Route::post('contrato/{contract}/update', ['uses' => 'Gerencial\ContratoController@update', 'as' => 'contrato.update']);
-    Route::get('cursos',  ['uses' =>'CursosController@index','as'=>'cursos.index']);
-    Route::post('cursos/store',  ['uses' =>'CursosController@store','as'=>'cursos.store']);
-    Route::post('cursos/delete/{id}',  ['uses' =>'CursosController@delete','as'=>'cursos.delete']);
+    Route::get('cursos', ['uses' => 'CursosController@index', 'as' => 'cursos.index']);
+    Route::post('cursos/store', ['uses' => 'CursosController@store', 'as' => 'cursos.store']);
+    Route::post('cursos/delete/{id}', ['uses' => 'CursosController@delete', 'as' => 'cursos.delete']);
 
     //expenses
     Route::get('contrato/{contract}/expenses', ['uses' => 'Gerencial\Contrato\ContratoExpensesController@index', 'as' => 'contrato.expenses']);
@@ -218,7 +216,7 @@ Route::group(['prefix'=>'gerencial','as' => 'gerencial.', 'middleware' => ['auth
     Route::get('contrato/admin/{contract}/config_tipo_pagamento', ['uses' => 'Gerencial\ContratoAdminController@config_tipo_pagamento', 'as' => 'contrato.admin.config_tipo_pagamento']);
     Route::post('contrato/admin/store_tipo_pagamento', ['uses' => 'Gerencial\ContratoAdminController@store_tipo_pagamento', 'as' => 'contrato.admin.store_tipo_pagamento']);
 
-    
+
 
 
     Route::get('orcamento/produtos', ['uses' => 'Gerencial\OrcamentoProdutoController@create', 'as' => 'orcamento.produto.create']);
@@ -227,12 +225,11 @@ Route::group(['prefix'=>'gerencial','as' => 'gerencial.', 'middleware' => ['auth
     Route::get('calleds', ['uses' => 'Gerencial\CalledController@calleds', 'as' => 'calleds']);
     Route::get('calleds/show/{chamado}', ['uses' => 'Gerencial\CalledController@calledShow', 'as' => 'called.show']);
     Route::post('calleds/show/{chamado}', ['uses' => 'Gerencial\CalledController@calledConversationsStore', 'as' => 'called.conversations.store']);
-
 });
 
 Auth::routes();
 
-Route::get('/home', function (){
+Route::get('/home', function () {
     return redirect()->route('portal.home');
 });
 
@@ -255,7 +252,7 @@ Route::get('api/iugu/consults/{date}', ['uses' => 'API\IuguController@consults',
  * /cad
  * Cadastro de formandos não aderidos
  */
-Route::group(['prefix'=>'cad','as' => 'cad.'], function (){
+Route::group(['prefix' => 'cad', 'as' => 'cad.'], function () {
 
     Route::get('', ['uses' => 'CadastroController@nContrato', 'as' => 'ncontrato']);
 
@@ -265,14 +262,13 @@ Route::group(['prefix'=>'cad','as' => 'cad.'], function (){
     Route::get('{codturma}', ['uses' => 'CadastroController@contrato', 'as' => 'contrato']);
     Route::post('{codturma}', ['uses' => 'CadastroController@store', 'as' => 'store']);
     //Route::get('{codturma}', ['uses' => 'API\AppController@valid', 'as' => 'app.forming.valid']);
-
 });
 
 
 /*
  * API APPs
  */
-Route::group(['prefix'=>'api','as' => 'api.'], function (){
+Route::group(['prefix' => 'api', 'as' => 'api.'], function () {
 
     Route::post('app/login', ['uses' => 'API\AppController@login', 'as' => 'app.login']);
     Route::post('app/atends', ['uses' => 'API\AppController@atendimento', 'as' => 'app.atend']);
@@ -292,24 +288,22 @@ Route::group(['prefix'=>'api','as' => 'api.'], function (){
 
     Route::post('app/ckeckin/ticket', ['uses' => 'API\AppController@ckeckinTicket', 'as' => 'app.ckeckin.ckeckin']);
     Route::post('app/event/checkin/qr', ['uses' => 'API\AppController@EventCheckinQR', 'as' => 'app.ckeckin.ckeckin.qr']);
-
 });
 
 
 /*
  * WEBHOOK
  */
-Route::group(['prefix'=>'webhook','as' => 'webhook.'], function (){
+Route::group(['prefix' => 'webhook', 'as' => 'webhook.'], function () {
 
     Route::get('geraboletos', ['uses' => 'WebhookController@geraBoletos', 'as' => 'geraboletos']);
     Route::get('cancelaboletos', ['uses' => 'WebhookController@cancelaBoletos', 'as' => 'cancelaboletos']);
     Route::get('geraTickets', ['uses' => 'WebhookController@geraTickets', 'as' => 'geratickets']);
     Route::any('pseg', ['uses' => 'API\PsegController@webhook', 'as' => 'api.pseg.webhook']);
-
 });
 
 
-Route::get('/erro/404', function (){
+Route::get('/erro/404', function () {
     return view('erro.404');
 })->name('erro.404');
 

@@ -37,13 +37,13 @@
                     Vendas Extras
                 </a>
             </li>
-            <li @if($rota_menu == 'comissao.registers'){!! $css_active  !!}@endif>
+            <!--<li @if($rota_menu == 'comissao.registers'){!! $css_active  !!}@endif>
                 <a class="left-menu-link" href="{{route('comissao.registers')}}">
-                    <i class="left-menu-link-icon icmn-arrow-right2"><!-- --></i>
+                    <i class="left-menu-link-icon icmn-arrow-right2"></i>
                     Registros
                 </a>
             </li>
-            <!--
+             
             <li @if($rota_menu == 'comissao.orcamento'){!! $css_active  !!}@endif>
                 <a class="left-menu-link" href="{{route('comissao.orcamento')}}">
                     <i class="left-menu-link-icon icmn-arrow-right2"><!-- </i>

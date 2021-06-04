@@ -37,7 +37,7 @@
 
             <!-- Profile -->
             <div class="row">
-                <div class="col-xl-4">
+                <div class="col-xl-12">
                     <section class="panel profile-user" style="background-image: url({{asset('assets/common/img/temp/photos/12.jpg')}})">
                         <div class="panel-body">
                             <div class="profile-user-title text-center">
@@ -152,7 +152,7 @@
                     -->
                 </div>
 
-                <div class="col-xl-8">
+                <div class="col-xl-12">
                     <section class="panel profile-user-content">
                         <div class="panel-body">
                             <div class="nav-tabs-horizontal">
