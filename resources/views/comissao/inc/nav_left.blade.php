@@ -4,9 +4,7 @@
             <img src="{{ env('APP_LOGO') }}" class="width-150" alt="{{env('APP_NAME')}} LOGO">
         </a>
     </div>
-    <div class="left-menu-inner scroll-pane jspScrollable" tabindex="0"
-         style="overflow: hidden; padding: 0px; width: 239px;">
-
+    <div class="left-menu-inner scroll-pane jspScrollable" tabindex="0" style="overflow: hidden; padding: 0px; width: 239px;">
         <ul class="left-menu-list left-menu-list-root list-unstyled">
             @php
             $rota_menu = Route::getCurrentRoute()->getName();
@@ -24,7 +22,6 @@
                     Formandos
                 </a>
             </li>
-
             <li @if($rota_menu == 'comissao.formandos.canceled'){!! $css_active  !!}@endif>
                 <a class="left-menu-link" href="{{route('comissao.formandos.canceled')}}">
                     <i class="left-menu-link-icon icmn-arrow-right2"><!-- --></i>
@@ -57,14 +54,24 @@
                     Lojinha da Turma
                 </a>
             </li>
-
             <li @if($rota_menu == 'comissao.contrato'){!! $css_active  !!}@endif>
                 <a class="left-menu-link" href="{{route('comissao.contrato')}}">
                     <i class="left-menu-link-icon icmn-arrow-right2"><!-- --></i>
                     Contrato
                 </a>
             </li>
-
+            <li @if($rota_menu == 'comissao.contrato'){!! $css_active  !!}@endif>
+                <a class="left-menu-link" href="{{route('comissao.logs')}}">
+                    <i class="left-menu-link-icon icmn-arrow-right2"><!-- --></i>
+                    Logs
+                </a>
+            </li>
+            <!--<li>
+                <a class="left-menu-link" href="/logout">
+                    <i class="left-menu-link-icon icmn-arrow-right2"></i>
+                    Sair
+                </a>
+            </li>
             <!--
             <li @if($rota_menu == 'comissao.chamados'){!! $css_active  !!}@endif>
                 <a class="left-menu-link" href="{{route('comissao.chamados')}}">
@@ -74,6 +81,5 @@
             </li>
             -->
         </ul>
-
     </div>
 </nav>

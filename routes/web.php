@@ -1,4 +1,5 @@
 <?php
+
 /*
   |--------------------------------------------------------------------------
   | Web Routes
@@ -9,7 +10,9 @@
   | contains the "web" middleware group. Now create something great!
   |
  */
+
 use Illuminate\Support\Facades\Auth;
+
 Route::group(['prefix' => '/', 'middleware' => 'web'], function () {
     //return redirect()->route('site.home');
     /* SITE */
@@ -43,7 +46,6 @@ Route::post('adesao/vpagamento', ['uses' => 'adesaoController@validPagamento', '
 Route::get('adesao/concluido', ['uses' => 'adesaoController@concluido', 'as' => 'adesao.concluido']);
 Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => 'auth'], function () {
     Route::get('budget/see/{id}', ['uses' => 'BudgetController@see', 'as' => 'budget.see']);
-    
     Route::get('orcamentos', ['uses' => 'BudgetController@index', 'as' => 'orcamentos']);
     Route::get('consultaAtivaBoleto', ['uses' => 'PortalController@consultaAtivaBoleto']);
     Route::get('consultaTransacao/{invoice_id}', ['uses' => 'PortalController@consultaTransacao']);
@@ -96,10 +98,11 @@ Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => 'auth'], 
     Route::get('surveys', ['uses' => 'PortalController@surveys', 'as' => 'survey.index']);
     Route::get('survey/{survey}', ['uses' => 'PortalController@surveyShow', 'as' => 'survey.show']);
     Route::post('survey/{survey}', ['uses' => 'PortalController@surveyAnswerStore', 'as' => 'survey.answer.store']);
-    Route::get('identify', ['uses' => 'PortalController@identify', 'as' => 'identity']);
+    //Route::get('identify', ['uses' => 'PortalController@identify', 'as' => 'identity']);
 });
 Route::get('raffle/number/{hash}', ['uses' => 'PortalController@raffleNumberHash', 'as' => 'raffle.number.hash']);
 Route::group(['prefix' => 'comissao', 'as' => 'comissao.', 'middleware' => ['auth', 'checkcomissao']], function () {
+    Route::get('logs', ['uses' => 'ComissaoController@logs', 'as' => 'logs']);
     Route::get('painel', ['uses' => 'ComissaoController@painel', 'as' => 'painel']);
     Route::get('formandos', ['uses' => 'ComissaoController@formandos', 'as' => 'formandos']);
     Route::get('formandos/canceled', ['uses' => 'ComissaoController@formandosCanceled', 'as' => 'formandos.canceled']);
@@ -136,30 +139,19 @@ Route::group(['prefix' => 'gerencial', 'as' => 'gerencial.', 'middleware' => ['a
     Route::get('formando/{forming}', ['uses' => 'Gerencial\FormandoAdminController@show', 'as' => 'formando.show']);
     Route::get('formando/extrato/{prod}', ['uses' => 'Gerencial\FormandoAdminController@showItem', 'as' => 'formando.show.item']);
     Route::get('formando/login/{forming}', ['uses' => 'Gerencial\FormandoAdminController@forceLogin', 'as' => 'formando.login']);
-
     Route::post('budget/store/{idcontract}/{id2}', ['uses' => 'Gerencial\BudgetController@store', 'as' => 'budget.store']);
     Route::get('budget/delete/{id}', ['uses' => 'Gerencial\BudgetController@delete', 'as' => 'budget.delete']);
     Route::get('budget/create/{id}/{contract}', ['uses' => 'Gerencial\BudgetController@create', 'as' => 'budget.create']);
     Route::get('budget/{contract}/index', ['uses' => 'Gerencial\BudgetController@index', 'as' => 'contrato.budget']);
-    
-    
-    
     Route::post('brindes/store/{idcontract}/{id2}', ['uses' => 'Gerencial\BrindesController@store', 'as' => 'brindes.store']);
     Route::get('brindes/delete/{id}', ['uses' => 'Gerencial\BrindesController@delete', 'as' => 'brindes.delete']);
     Route::get('brindes/create/{id}/{contract}', ['uses' => 'Gerencial\BrindesController@create', 'as' => 'brindes.create']);
     Route::get('brindes/{contract}/index', ['uses' => 'Gerencial\BrindesController@index', 'as' => 'contrato.brindes']);
-    
-    
-    
-    
     Route::post('contratocomissao/store/{idcontract}/{id2}', ['uses' => 'Gerencial\ContratocomissaoController@store', 'as' => 'contratocomissao.store']);
     Route::get('contratocomissao/delete/{id}', ['uses' => 'Gerencial\ContratocomissaoController@delete', 'as' => 'contratocomissao.delete']);
     Route::get('contratocomissao/create/{id}/{contract}', ['uses' => 'Gerencial\ContratocomissaoController@create', 'as' => 'contratocomissao.create']);
     Route::get('contratocomissao/{contract}/index', ['uses' => 'Gerencial\ContratocomissaoController@index', 'as' => 'contrato.contratocomissao']);
-    
     Route::get('brindesretirados/create/{brinde}/{formando}/{contractid}', ['uses' => 'Gerencial\BrindesController@retirarbrinde', 'as' => 'brindesretirados.create']);
-    
-
     Route::get('contratos', ['uses' => 'Gerencial\ContratoController@index', 'as' => 'contratos']);
     Route::get('contrato/create', ['uses' => 'Gerencial\ContratoController@create', 'as' => 'contrato.create']);
     Route::get('contrato/{contract}/edit', ['uses' => 'Gerencial\ContratoController@edit', 'as' => 'contrato.edit']);
