@@ -1,5 +1,5 @@
+'use strict'
 class Comun {
-
     constructor() {
         this.pathResources = '/assets/common/js/scripts/';
         this.loadScripts();
@@ -14,6 +14,29 @@ class Comun {
                 });
             });
         }
+    }
+    print(element) {
+        var WindowPrint;
+        WindowPrint = window.open('', '', 'width=1200,height=800');
+        WindowPrint.document.write(`
+                            <html>
+                                <head>
+                                <style type="text/css">
+                                @media print {
+                                   tr:nth-child(even) td {
+                                       background-color: #dfe4ed !important;
+                                        -webkit-print-color-adjust: exact;
+                                   }
+                                }
+                                </style>
+                                </head>
+                                <body onload="window.print()">
+                                ` + $(element)[0].outerHTML + `
+                                </body>
+                            </html>
+                            `);
+        WindowPrint.document.close();
+        WindowPrint.focus();
     }
     datatable(reference, display = 25) {
         $(reference).DataTable({

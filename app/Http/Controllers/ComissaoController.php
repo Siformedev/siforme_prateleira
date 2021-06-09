@@ -18,11 +18,205 @@ use App\Services\GiftRequestServices;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use App\Helpers\MainHelper;
 
 class ComissaoController extends Controller {
 
     function __construct() {
         
+    }
+
+    private function exportExcellFile($formings) {
+        
+        $helper = new MainHelper();
+        
+        ob_start();
+        
+        echo   "<table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Curso</th>
+                            <th>Periodo</th>
+                            <th >Data e Hora Adesão</th>
+                            <th >% Pago</th>
+                            <th ></th>
+                            <th >Status</th>
+                            <th >Adquiriu Album</th>
+                        
+                        </tr>
+                    </thead>";
+        
+        foreach ($formings as $forming) {
+            
+            
+            
+            $valor = 0;
+            $valor_pago_all = 0;
+            $product = FormandoProdutosEServicos::where('forming_id', $forming->id)->where('category_id', 1)->first();
+            if (isset($product->id)) {
+                $parcels = FormandoProdutosParcelas::where('formandos_produtos_id', $product->id)->where('dt_vencimento', '<', date('Y-m-d'))->get();
+                $parcelsTotal = FormandoProdutosParcelas::where('formandos_id', $forming->id)->where('formandos_produtos_id', $product->id)->get();
+                foreach ($parcelsTotal as $parcel_all) {
+                    if (isset($parcel_all->pagamento)) {
+                        $valor_pago_all += $parcel_all->pagamento->sum('valor_pago');
+                    }
+                }
+                $valorTotal = $parcelsTotal->sum('valor');
+                $valor = $parcels->sum('valor');
+                $valor_pago = 0;
+                foreach ($parcels as $parcel) {
+                    if (isset($parcel->pagamento)) {
+                        $valor_pago += $parcel->pagamento->sum('valor_pago');
+                    }
+                }
+                @$perc_pago = number_format((($valor_pago_all / $valorTotal) * 100), 0);
+                if (!$perc_pago or empty($perc_pago)) {
+                    $perc_pago = 0;
+                }
+                $formingPerc[$forming->id] = (int) $perc_pago;
+                if ($valor_pago_all <= 0) {
+                    $formingStatus[$forming->id] = 'Pendente';
+                    $formingLabel[$forming->id] = 'info';
+                } elseif ($valor_pago_all >= 0 and ($valor_pago_all >= $valor)) {
+                    $formingStatus[$forming->id] = 'Adimplente';
+                    $formingLabel[$forming->id] = 'success';
+                } elseif ($valor_pago_all >= 0 and ($valor_pago_all < $valor)) {
+                    $formingStatus[$forming->id] = 'Inadimplente';
+                    $formingLabel[$forming->id] = 'danger';
+                } else {
+                    $formingStatus[$forming->id] = 'Pendente';
+                    $formingLabel[$forming->id] = 'info';
+                }
+            }
+            
+            
+            $albuns = FormandoProdutosEServicos::where('forming_id', $forming->id)->where('category_id', '2')->get();
+            if (isset(\App\ConfigApp::Periodos()[$forming->periodo_id])) {
+                $periodo = \App\ConfigApp::Periodos()[$forming->periodo_id];
+            } else {
+                $periodo = '';
+            }
+            ?>
+            <tr>
+                <td><span class="font-size-16 font-weight-bold"><?= $forming->nome; ?> <?= $forming->sobrenome; ?></span></td>
+                <td><?= \App\Course::find($forming->curso_id)['name']; ?></td>
+                <td><?= $periodo; ?></td>
+                <td><?= $helper->toMysqlDate($forming->created_at, false); ?></td>
+                <td style="width: 20px;<?= isset($mostradetalhes) ? 'display:none;' : ''; ?>"> <?= isset($formingPerc[$forming->id]) ? $formingPerc[$forming->id] : ''; ?>%
+                </td>
+                <td style="width: 60px; <?= isset($mostradetalhes) ? 'display:none;' : ''; ?>">
+                    <progress class="progress progress-success" value="<?= isset($formingPerc[$forming->id]) ? $formingPerc[$forming->id] : ''; ?>" max="100"><?= isset($formingPerc[$forming->id]) ? $formingPerc[$forming->id] : ''; ?>%</progress>
+                </td>
+                <td style="<?= isset($mostradetalhes) ? 'display:none;' : ''; ?>"><span class="label label-<?= isset($formingPerc[$forming->id]) ? $formingPerc[$forming->id] : ''; ?>"><?= isset($formingPerc[$forming->id]) ? $formingPerc[$forming->id] : ''; ?></span> </td>
+                <td><?= (count($albuns) > 0) ? 'Sim' : 'Não'; ?></td>
+              
+            </tr>
+            <?php
+        }
+        echo "</table>";
+        header("Content-Type:   application/vnd.ms-excel; charset=utf-8");
+        header("Content-Disposition: attachment; filename=relatorioformandos.xls");
+        header("Expires: 0");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header("Cache-Control: private", false);
+        echo ob_get_clean();
+    }
+
+    function exportexcell() {
+        $contract = Contract::find(auth()->user()->userable->contract_id);
+        $formings = $contract->formings->where('status', 1);
+        $formingStatus = [];
+        $formingPerc = [];
+        foreach ($formings as $forming) {
+            $valor = 0;
+            $valor_pago_all = 0;
+            $product = FormandoProdutosEServicos::where('forming_id', $forming->id)->where('category_id', 1)->first();
+            if (isset($product->id)) {
+                $parcels = FormandoProdutosParcelas::where('formandos_produtos_id', $product->id)->where('dt_vencimento', '<', date('Y-m-d'))->get();
+                $parcelsTotal = FormandoProdutosParcelas::where('formandos_id', $forming->id)->where('formandos_produtos_id', $product->id)->get();
+                foreach ($parcelsTotal as $parcel_all) {
+                    if (isset($parcel_all->pagamento)) {
+                        $valor_pago_all += $parcel_all->pagamento->sum('valor_pago');
+                    }
+                }
+                $valorTotal = $parcelsTotal->sum('valor');
+                $valor = $parcels->sum('valor');
+                $valor_pago = 0;
+                foreach ($parcels as $parcel) {
+                    if (isset($parcel->pagamento)) {
+                        $valor_pago += $parcel->pagamento->sum('valor_pago');
+                    }
+                }
+                @$perc_pago = number_format((($valor_pago_all / $valorTotal) * 100), 0);
+                if (!$perc_pago or empty($perc_pago)) {
+                    $perc_pago = 0;
+                }
+                $formingPerc[$forming->id] = (int) $perc_pago;
+                if ($valor_pago_all <= 0) {
+                    $formingStatus[$forming->id] = 'Pendente';
+                    $formingLabel[$forming->id] = 'info';
+                } elseif ($valor_pago_all >= 0 and ($valor_pago_all >= $valor)) {
+                    $formingStatus[$forming->id] = 'Adimplente';
+                    $formingLabel[$forming->id] = 'success';
+                } elseif ($valor_pago_all >= 0 and ($valor_pago_all < $valor)) {
+                    $formingStatus[$forming->id] = 'Inadimplente';
+                    $formingLabel[$forming->id] = 'danger';
+                } else {
+                    $formingStatus[$forming->id] = 'Pendente';
+                    $formingLabel[$forming->id] = 'info';
+                }
+            }
+        }
+        return $this->exportExcellFile($formings);
+    }
+
+    function printpapper() {
+        $contract = Contract::find(auth()->user()->userable->contract_id);
+        $formings = $contract->formings->where('status', 1);
+        $formingStatus = [];
+        $formingPerc = [];
+        foreach ($formings as $forming) {
+            $valor = 0;
+            $valor_pago_all = 0;
+            $product = FormandoProdutosEServicos::where('forming_id', $forming->id)->where('category_id', 1)->first();
+            if (isset($product->id)) {
+                $parcels = FormandoProdutosParcelas::where('formandos_produtos_id', $product->id)->where('dt_vencimento', '<', date('Y-m-d'))->get();
+                $parcelsTotal = FormandoProdutosParcelas::where('formandos_id', $forming->id)->where('formandos_produtos_id', $product->id)->get();
+                foreach ($parcelsTotal as $parcel_all) {
+                    if (isset($parcel_all->pagamento)) {
+                        $valor_pago_all += $parcel_all->pagamento->sum('valor_pago');
+                    }
+                }
+                $valorTotal = $parcelsTotal->sum('valor');
+                $valor = $parcels->sum('valor');
+                $valor_pago = 0;
+                foreach ($parcels as $parcel) {
+                    if (isset($parcel->pagamento)) {
+                        $valor_pago += $parcel->pagamento->sum('valor_pago');
+                    }
+                }
+                @$perc_pago = number_format((($valor_pago_all / $valorTotal) * 100), 0);
+                if (!$perc_pago or empty($perc_pago)) {
+                    $perc_pago = 0;
+                }
+                $formingPerc[$forming->id] = (int) $perc_pago;
+                if ($valor_pago_all <= 0) {
+                    $formingStatus[$forming->id] = 'Pendente';
+                    $formingLabel[$forming->id] = 'info';
+                } elseif ($valor_pago_all >= 0 and ($valor_pago_all >= $valor)) {
+                    $formingStatus[$forming->id] = 'Adimplente';
+                    $formingLabel[$forming->id] = 'success';
+                } elseif ($valor_pago_all >= 0 and ($valor_pago_all < $valor)) {
+                    $formingStatus[$forming->id] = 'Inadimplente';
+                    $formingLabel[$forming->id] = 'danger';
+                } else {
+                    $formingStatus[$forming->id] = 'Pendente';
+                    $formingLabel[$forming->id] = 'info';
+                }
+            }
+        }
+        return view('comissao.formandosprintpapper', compact('contract', 'formingStatus', 'formingPerc', 'formings', 'formingLabel'));
     }
 
     function logs() {
@@ -55,7 +249,6 @@ class ComissaoController extends Controller {
             //dd($forming->id);
             if (isset($product->id)) {
                 $parcels_all = FormandoProdutosParcelas::where('formandos_produtos_id', $product->id)->where('formandos_id', $forming->id)->get();
-
                 $valor_pago_all = 0;
                 foreach ($parcels_all as $parcel_all) {
                     if (isset($parcel_all->pagamento)) {
@@ -124,8 +317,6 @@ class ComissaoController extends Controller {
             $valor_pago_all = 0;
             $product = FormandoProdutosEServicos::where('forming_id', $forming->id)->where('category_id', 1)->first();
             if (isset($product->id)) {
-
-
                 $parcels = FormandoProdutosParcelas::where('formandos_produtos_id', $product->id)->where('dt_vencimento', '<', date('Y-m-d'))->get();
                 $parcelsTotal = FormandoProdutosParcelas::where('formandos_id', $forming->id)->where('formandos_produtos_id', $product->id)->get();
                 foreach ($parcelsTotal as $parcel_all) {
@@ -295,7 +486,7 @@ class ComissaoController extends Controller {
             }
         }
         //dd($products_cancel);
-        return view('comissao.formando_show', compact('forming', 'products', 'formingLabel', 'prods', 'products_cancel', 'formingLabel_cancel', 'prods_cancel'));
+        return view('comissao.formando_show', compact('forming', 'products', (isset($formingLabel) ? 'formingLabel' : null), 'prods', 'products_cancel', (isset($formingLabel_cancel) ? 'formingLabel_cancel' : null), 'prods_cancel'));
     }
 
     public function formandosShowItem(FormandoProdutosEServicos $prod) {

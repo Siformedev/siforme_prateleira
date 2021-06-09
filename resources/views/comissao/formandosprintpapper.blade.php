@@ -1,11 +1,9 @@
 @extends('comissao.inc.layout')
 @section('content')
 <?php
-
 use App\FormandoProdutosEServicos;
 use App\Helpers\MainHelper;
-
-$helper = new MainHelper();
+$helper=new MainHelper();
 ?>
 <section class="page-content">
     <div class="page-content-inner">
@@ -16,15 +14,6 @@ $helper = new MainHelper();
                 <hr>
             </div>
             <div class="panel-body">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <a href="<?= url('/'); ?>/comissao/formandos/printpapper" class="btn btn-primary"><i class='fa fa-print'></i> Imprimir</a>
-                        <a href="<?= url('/'); ?>/comissao/formandos/exportexcell" class="btn btn-primary"><i class='fa fa-file-excel-o'></i> Exportar Excell</a>
-                    </div>
-                    <br/>
-                    <br/>
-                    <br/>
-                </div>
                 <div class="row">
                     <div class="col-md-12">
                         <table class="table table-hover nowrap dataTable dtr-inline table-responsive" id="table1">
@@ -37,8 +26,7 @@ $helper = new MainHelper();
                                     <th style="<?= isset($mostradetalhes) ? 'display:none;' : ''; ?>">% Pago</th>
                                     <th ></th>
                                     <th style="<?= isset($mostradetalhes) ? 'display:none;' : ''; ?>">Status</th>
-                                    <th style="<?= isset($mostradetalhes) ? 'display:none;' : ''; ?>">Adquiriu Album</th>
-                                    <th>Ação</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -62,10 +50,7 @@ $helper = new MainHelper();
                                         <progress class="progress progress-success" value="{{isset($formingPerc[$forming->id]) ? $formingPerc[$forming->id]:''}}" max="100">{{isset($formingPerc[$forming->id]) ? $formingPerc[$forming->id]:''}}%</progress>
                                     </td>
                                     <td style="<?= isset($mostradetalhes) ? 'display:none;' : ''; ?>"><span class="label label-{{isset($formingPerc[$forming->id]) ? $formingPerc[$forming->id]:''}}">{{isset($formingPerc[$forming->id]) ? $formingPerc[$forming->id]:''}}</span> </td>
-                                    <td><?= (count($albuns) > 0) ? '<i class="fa fa-check"></i>' : '<i class="fa fa-remove"></i>'; ?></td>
-                                    <td>
-                                        <a href="{{route('comissao.formandos.show', ['$forming' => $forming->id])}}" class="btn btn-success">Visualizar</a>
-                                    </td>
+                                    
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -77,6 +62,6 @@ $helper = new MainHelper();
     </div>
 </section>
 @section('jscripts')
-comissao.datatable('#table1');
+comissao.print('#table1');
 @endsection
 @endsection

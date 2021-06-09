@@ -47,8 +47,6 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class PortalController extends Controller {
 
-    private $forming;
-
     function __construct() {
         parent::__construct();
     }
@@ -66,6 +64,21 @@ class PortalController extends Controller {
         } catch (\Throwable $th) {
             return redirect()->route('login');
         }
+    }
+
+    function cancel($idproduct) {
+        $formando = Auth::user()->userable->id;
+        $parcelas = FormandoProdutosParcelas::where('formandos_produtos_id', $idproduct)->where('formandos_id', $formando)->get();
+        foreach ($parcelas as $retorno) {
+            $parcelas = ParcelasPagamentos::where('parcela_id', $retorno->id)->get();
+            foreach ($parcelas as $retorno2) {
+                PagamentosBoleto::where('parcela_pagamento_id', $retorno2->id)->first()->delete();
+                $retorno2->delete();
+            }
+            $retorno->delete();
+        }
+        FormandoProdutosEServicos::where('id', $idproduct)->delete();
+        return redirect(url("/portal/extrato"))->send();
     }
 
     public function extrato() {
@@ -174,7 +187,13 @@ class PortalController extends Controller {
         $termo = str_replace('[[=valor]]', number_format($prod->valorFinal(), 2, ',', '.'), $termo);
         $logoimini = '/public/img/logo_i_mini.png';
         $logo = asset('img/logo.png');
-        if (isset($pagamentos[$parcela['id']]->typepaind_type) && $pagamentos[$parcela['id']]->typepaind_type == 'App\PagamentosCartao') {
+        if (
+                isset($parcela['id']) &&
+                isset(
+                        $pagamentos[$parcela['id']]->typepaind_type
+                )  &&
+                $pagamentos[$parcela['id']]->typepaind_type == 'App\PagamentosCartao'
+        ) {
             $pgto = PagamentosCartao::where('parcela_pagamento_id', $pagamentos[$parcela['id']]->id)->get()->toArray()[0];
         } else {
             $pgto = null;
@@ -964,6 +983,7 @@ class PortalController extends Controller {
                             'category_id',
                             2
                     )->get()->toArray();
+
             foreach ($products as $p) {
                 $product[$p['id']] = $p;
                 $values = ProductAndServiceValues::where('products_and_services_id', $p['id'])
@@ -973,31 +993,32 @@ class PortalController extends Controller {
                 if ($values) {
                     $values = $values->toArray();
                 }
+
                 $product[$p['id']]['values'] = $values;
                 $product[$p['id']]['termo'] = ProdutosEServicosTermo::where(
                                 'id',
                                 '=',
                                 $p['termo_id']
                         )->get()->toArray()[0];
-                $product[$p['id']]['termo'] = str_replace(
-                        '[[=valor]]',
-                        number_format($product[$p['id']]['values']['value'], 2, ',', '.'),
-                        $product[$p['id']]['termo']
-                );
-                $discounts = ProductAndServiceDiscounts::where('products_and_services_id', $p['id'])
-                                ->where('date_start', '<=', date('Y-m-d H:i:s'))
-                                ->where('date_end', '>', date('Y-m-d H:i:s'))
-                                ->get()->toArray();
-                foreach ($discounts as $d) {
-                    $product[$p['id']]['discounts'][$d['maximum_parcels']] = $d;
+
+                if (isset($product) && isset($p['id']['termo'])) {
+
+                    $product[$p['id']]['termo'] = str_replace('[[=valor]]', number_format($product[$p['id']]['values']['value'], 2, ',', '.'), $product[$p['id']]['termo']);
+                    $discounts = ProductAndServiceDiscounts::where('products_and_services_id', $p['id'])
+                                    ->where('date_start', '<=', date('Y-m-d H:i:s'))
+                                    ->where('date_end', '>', date('Y-m-d H:i:s'))
+                                    ->get()->toArray();
+                    foreach ($discounts as $d) {
+                        $product[$p['id']]['discounts'][$d['maximum_parcels']] = $d;
+                    }
+                    $product[$p['id']]['max_parcels'] = ConvertData::calculaParcelasMeses(
+                                    date(
+                                            'Y-m-d',
+                                            strtotime($product[$p['id']]['values']['date_start'])
+                                    ),
+                                    $product[$p['id']]['values']['maximum_parcels']
+                    );
                 }
-                $product[$p['id']]['max_parcels'] = ConvertData::calculaParcelasMeses(
-                                date(
-                                        'Y-m-d',
-                                        strtotime($product[$p['id']]['values']['date_start'])
-                                ),
-                                $product[$p['id']]['values']['maximum_parcels']
-                );
                 //$product[$p['id']]['discounts'] = $discounts;
             }
             if (count($products) <= 0) {

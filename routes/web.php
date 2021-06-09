@@ -51,6 +51,7 @@ Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => 'auth'], 
     Route::get('consultaTransacao/{invoice_id}', ['uses' => 'PortalController@consultaTransacao']);
     Route::get('home', ['uses' => 'PortalController@home', 'as' => 'home']);
     Route::get('extrato', ['uses' => 'PortalController@extrato', 'as' => 'extrato']);
+    Route::get('extrato/cancel/{prod}', ['uses' => 'PortalController@cancel', 'as' => 'extrato.cancel']);
     Route::get('extrato/prod/{prod}', ['uses' => 'PortalController@extratoProduto', 'as' => 'extrato.produto']);
     Route::get('extrato/prod-pay-credit/{prod}', ['uses' => 'PortalController@extratoProdutoPayCredit', 'as' => 'extrato.produto.paycredit']);
     Route::get('extrato/payment/{prod}', ['uses' => 'PortalController@extratoProdutoPayCredit2', 'as' => 'extrato.produto.payment']);
@@ -105,6 +106,8 @@ Route::group(['prefix' => 'comissao', 'as' => 'comissao.', 'middleware' => ['aut
     Route::get('logs', ['uses' => 'ComissaoController@logs', 'as' => 'logs']);
     Route::get('painel', ['uses' => 'ComissaoController@painel', 'as' => 'painel']);
     Route::get('formandos', ['uses' => 'ComissaoController@formandos', 'as' => 'formandos']);
+    Route::get('formandos/exportexcell', ['uses' => 'ComissaoController@exportexcell', 'as' => 'exportexcell']);
+    Route::get('formandos/printpapper', ['uses' => 'ComissaoController@printpapper', 'as' => 'printpapper']);
     Route::get('formandos/canceled', ['uses' => 'ComissaoController@formandosCanceled', 'as' => 'formandos.canceled']);
     Route::get('formandos/{forming}', ['uses' => 'ComissaoController@formandosShow', 'as' => 'formandos.show']);
     Route::get('formandos/extrato/{prod}', ['uses' => 'ComissaoController@formandosShowItem', 'as' => 'formandos.show.item']);
