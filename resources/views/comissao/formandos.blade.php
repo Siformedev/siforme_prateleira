@@ -17,6 +17,7 @@ $helper = new MainHelper();
             </div>
             <div class="panel-body">
                 <div class="row">
+
                     <div class="col-lg-12">
                         <a href="<?= url('/'); ?>/comissao/formandos/printpapper" class="btn btn-primary"><i class='fa fa-print'></i> Imprimir</a>
                         <a href="<?= url('/'); ?>/comissao/formandos/exportexcell" class="btn btn-primary"><i class='fa fa-file-excel-o'></i> Exportar Excell</a>
@@ -26,6 +27,8 @@ $helper = new MainHelper();
                     <br/>
                 </div>
                 <div class="row">
+
+
                     <div class="col-md-12">
                         <table class="table table-hover nowrap dataTable dtr-inline table-responsive" id="table1">
                             <thead>
@@ -43,19 +46,21 @@ $helper = new MainHelper();
                             </thead>
                             <tbody>
                                 @foreach($formings as $forming)
-                                <?php
-                                $albuns = FormandoProdutosEServicos::where('forming_id', $forming->id)->where('category_id', '2')->get();
-                                if (isset(\App\ConfigApp::Periodos()[$forming->periodo_id])) {
-                                    $periodo = \App\ConfigApp::Periodos()[$forming->periodo_id];
-                                } else {
-                                    $periodo = '';
-                                }
-                                ?>
+<?php
+$albuns = FormandoProdutosEServicos::where('forming_id', $forming->id)->where('category_id', '2')->get();
+if (isset(\App\ConfigApp::Periodos()[$forming->periodo_id])) {
+    $periodo = \App\ConfigApp::Periodos()[$forming->periodo_id];
+} else {
+    $periodo = '';
+}
+?>
                                 <tr>
                                     <td><span class="font-size-16 font-weight-bold">{{$forming->nome}} {{$forming->sobrenome}}</span></td>
                                     <td>{{\App\Course::find($forming->curso_id)['name']}}</td>
                                     <td>{{$periodo}}</td>
+
                                     <td>{{$helper->toMysqlDate($forming->created_at,false)}}</td>
+
                                     <td style="width: 20px;<?= isset($mostradetalhes) ? 'display:none;' : ''; ?>"> {{isset($formingPerc[$forming->id]) ? $formingPerc[$forming->id]:''}}%
                                     </td>
                                     <td style="width: 60px; <?= isset($mostradetalhes) ? 'display:none;' : ''; ?>">
@@ -75,8 +80,10 @@ $helper = new MainHelper();
             </div>
         </section>
     </div>
+
 </section>
 @section('jscripts')
 comissao.datatable('#table1');
 @endsection
+
 @endsection

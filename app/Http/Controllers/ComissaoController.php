@@ -22,6 +22,7 @@ use App\Helpers\MainHelper;
 
 class ComissaoController extends Controller {
 
+
     function __construct() {
         
     }
@@ -224,6 +225,7 @@ class ComissaoController extends Controller {
         return view('comissao.logs', ['logs' => $model->all()]);
     }
 
+
     public function painel() {
         $contract = Contract::find(auth()->user()->userable->contract_id);
         $formingArray['total'] = 0;
@@ -244,11 +246,14 @@ class ComissaoController extends Controller {
             } else {
                 @$dataAdesao[date('m/Y', strtotime($forming->dt_adesao))] += 1;
             }
+
             //$forming->id = 52; //change
+
             $product = FormandoProdutosEServicos::where('forming_id', $forming->id)->where('category_id', 1)->first();
             //dd($forming->id);
             if (isset($product->id)) {
                 $parcels_all = FormandoProdutosParcelas::where('formandos_produtos_id', $product->id)->where('formandos_id', $forming->id)->get();
+
                 $valor_pago_all = 0;
                 foreach ($parcels_all as $parcel_all) {
                     if (isset($parcel_all->pagamento)) {
@@ -273,6 +278,7 @@ class ComissaoController extends Controller {
                     } elseif ($valor_pago_all >= 0 and ($valor_pago_all < $valor)) {
                         $formingArray['inadimplentes'] += 1;
                     }
+
                 }
             }
         }
@@ -316,13 +322,16 @@ class ComissaoController extends Controller {
             $valor = 0;
             $valor_pago_all = 0;
             $product = FormandoProdutosEServicos::where('forming_id', $forming->id)->where('category_id', 1)->first();
+
             if (isset($product->id)) {
+
                 $parcels = FormandoProdutosParcelas::where('formandos_produtos_id', $product->id)->where('dt_vencimento', '<', date('Y-m-d'))->get();
                 $parcelsTotal = FormandoProdutosParcelas::where('formandos_id', $forming->id)->where('formandos_produtos_id', $product->id)->get();
                 foreach ($parcelsTotal as $parcel_all) {
                     if (isset($parcel_all->pagamento)) {
                         $valor_pago_all += $parcel_all->pagamento->sum('valor_pago');
                     }
+
                 }
                 $valorTotal = $parcelsTotal->sum('valor');
                 $valor = $parcels->sum('valor');
@@ -355,6 +364,200 @@ class ComissaoController extends Controller {
             }
         }
         return view('comissao.formandos', compact('contract', 'formingStatus', 'formingPerc', 'formings', 'formingLabel'));
+    }
+
+    function formandosinadiplentes() {
+
+        $contract = Contract::find(auth()->user()->userable->contract_id);
+        $formingArray['total'] = 0;
+        $formingArray['pendentes'] = 0;
+        $formingArray['inadimplentes'] = 0;
+        $formingArray['adimplentes'] = 0;
+        $dataAdesao = [];
+        $dataAdesaoGrafico = [];
+        /** @var Forming $formings */
+        $formings = [];
+        $cursos = [];
+        $dateSignature = Carbon::parse($contract->signature_date);
+        $daysDifSignature = $dateSignature->diffInDays(Carbon::today());
+        $formings = $contract->formings->where('status', 1);
+        foreach ($formings as $forming) {
+
+            @$cursos[$forming->course->name] += 1;
+            if ($daysDifSignature <= 30) {
+                @$dataAdesao[date('d/m/Y', strtotime($forming->dt_adesao))] += 1;
+            } else {
+                @$dataAdesao[date('m/Y', strtotime($forming->dt_adesao))] += 1;
+            }
+            $product = FormandoProdutosEServicos::where('forming_id', $forming->id)->where('category_id', 1)->first();
+            //dd($forming->id);
+            if (isset($product->id)) {
+                $parcels_all = FormandoProdutosParcelas::where('formandos_produtos_id', $product->id)->where('formandos_id', $forming->id)->get();
+            } else {
+                $parcels_all = FormandoProdutosParcelas::where('formandos_produtos_id', 1)->where('formandos_id', $forming->id)->get();
+            }
+            $valor_pago_all = 0;
+            foreach ($parcels_all as $parcel_all) {
+                if (isset($parcel_all->pagamento)) {
+                    $valor_pago_all += $parcel_all->pagamento->sum('valor_pago');
+                }
+            }
+            if ($valor_pago_all <= 0) {
+                $formingArray['pendentes'] += 1;
+                $formingArray['total'] += 1;
+            } else {
+                $parcels = FormandoProdutosParcelas::where('formandos_produtos_id', $product->id)->where('formandos_id', $forming->id)->where('dt_vencimento', '<', date('Y-m-d'))->get();
+                $valor = $parcels->sum('valor');
+                $valor_pago = 0;
+                foreach ($parcels as $parcel) {
+
+                    if (isset($parcel->pagamento)) {
+                        $valor_pago += $parcel->pagamento->sum('valor_pago');
+                    }
+                }
+
+                $formingArray['total'] += 1;
+                if ($valor_pago_all >= 0 and ($valor_pago_all >= $valor)) {
+                    
+                } elseif ($valor_pago_all >= 0 and ($valor_pago_all < $valor)) {
+                    $formings2[] = $forming;
+                }
+            }
+        }
+        $formings = $formings2;
+        $formingStatus = null;
+        $contract = null;
+        $formingPerc = null;
+        $formingLabel = null;
+        $mostradetalhes=false;
+        return view('comissao.formandos', compact('contract', 'formingStatus', 'formingPerc', 'formings', 'formingLabel','mostradetalhes'));
+    }
+
+    function formandospendentes() {
+        $contract = Contract::find(auth()->user()->userable->contract_id);
+        $formingArray['total'] = 0;
+        $formingArray['pendentes'] = 0;
+        $formingArray['inadimplentes'] = 0;
+        $formingArray['adimplentes'] = 0;
+        $dataAdesao = [];
+        $dataAdesaoGrafico = [];
+        /** @var Forming $formings */
+        $formings = [];
+        $cursos = [];
+        $dateSignature = Carbon::parse($contract->signature_date);
+        $daysDifSignature = $dateSignature->diffInDays(Carbon::today());
+        $formings = $contract->formings->where('status', 1);
+        foreach ($formings as $forming) {
+
+            @$cursos[$forming->course->name] += 1;
+            if ($daysDifSignature <= 30) {
+                @$dataAdesao[date('d/m/Y', strtotime($forming->dt_adesao))] += 1;
+            } else {
+                @$dataAdesao[date('m/Y', strtotime($forming->dt_adesao))] += 1;
+            }
+            $product = FormandoProdutosEServicos::where('forming_id', $forming->id)->where('category_id', 1)->first();
+            //dd($forming->id);
+            if (isset($product->id)) {
+                $parcels_all = FormandoProdutosParcelas::where('formandos_produtos_id', $product->id)->where('formandos_id', $forming->id)->get();
+            } else {
+                $parcels_all = FormandoProdutosParcelas::where('formandos_produtos_id', 1)->where('formandos_id', $forming->id)->get();
+            }
+            $valor_pago_all = 0;
+            foreach ($parcels_all as $parcel_all) {
+                if (isset($parcel_all->pagamento)) {
+                    $valor_pago_all += $parcel_all->pagamento->sum('valor_pago');
+                }
+            }
+            if ($valor_pago_all <= 0) {
+                $formingArray['pendentes'] += 1;
+                $formings2[]=$forming;
+                $formingArray['total'] += 1;
+            } else {
+                $parcels = FormandoProdutosParcelas::where('formandos_produtos_id', $product->id)->where('formandos_id', $forming->id)->where('dt_vencimento', '<', date('Y-m-d'))->get();
+                $valor = $parcels->sum('valor');
+                $valor_pago = 0;
+                foreach ($parcels as $parcel) {
+                    if (isset($parcel->pagamento)) {
+                        $valor_pago += $parcel->pagamento->sum('valor_pago');
+                    }
+                }
+                $formingArray['total'] += 1;
+                if ($valor_pago_all >= 0 and ($valor_pago_all >= $valor)) {
+                    
+                } elseif ($valor_pago_all >= 0 and ($valor_pago_all < $valor)) {
+                    
+                }
+            }
+        }
+        $formings = $formings2;
+        $formingStatus = null;
+        $contract = null;
+        $formingPerc = null;
+        $formingLabel = null;
+        $mostradetalhes=false;
+        return view('comissao.formandos', compact('contract', 'formingStatus', 'formingPerc', 'formings', 'formingLabel','mostradetalhes'));
+    }
+
+    public function formandosadiplentes() {
+        $contract = Contract::find(auth()->user()->userable->contract_id);
+        $formingArray['total'] = 0;
+        $formingArray['pendentes'] = 0;
+        $formingArray['inadimplentes'] = 0;
+        $formingArray['adimplentes'] = 0;
+        $dataAdesao = [];
+        $dataAdesaoGrafico = [];
+        /** @var Forming $formings */
+        $formings = [];
+        $cursos = [];
+        $dateSignature = Carbon::parse($contract->signature_date);
+        $daysDifSignature = $dateSignature->diffInDays(Carbon::today());
+        foreach ($formings as $forming) {
+            @$cursos[$forming->course->name] += 1;
+            if ($daysDifSignature <= 30) {
+                @$dataAdesao[date('d/m/Y', strtotime($forming->dt_adesao))] += 1;
+            } else {
+                @$dataAdesao[date('m/Y', strtotime($forming->dt_adesao))] += 1;
+            }
+            $product = FormandoProdutosEServicos::where('forming_id', $forming->id)->where('category_id', 1)->first();
+            //dd($forming->id);
+            if (isset($product->id)) {
+                $parcels_all = FormandoProdutosParcelas::where('formandos_produtos_id', $product->id)->where('formandos_id', $forming->id)->get();
+            } else {
+                $parcels_all = FormandoProdutosParcelas::where('formandos_produtos_id', 1)->where('formandos_id', $forming->id)->get();
+            }
+            $valor_pago_all = 0;
+            foreach ($parcels_all as $parcel_all) {
+                if (isset($parcel_all->pagamento)) {
+                    $valor_pago_all += $parcel_all->pagamento->sum('valor_pago');
+                }
+            }
+            if ($valor_pago_all <= 0) {
+                $formingArray['pendentes'] += 1;
+                $formingArray['total'] += 1;
+            } else {
+                $parcels = FormandoProdutosParcelas::where('formandos_produtos_id', $product->id)->where('formandos_id', $forming->id)->where('dt_vencimento', '<', date('Y-m-d'))->get();
+                $valor = $parcels->sum('valor');
+                $valor_pago = 0;
+                foreach ($parcels as $parcel) {
+                    if (isset($parcel->pagamento)) {
+                        $valor_pago += $parcel->pagamento->sum('valor_pago');
+                    }
+                }
+                $formingArray['total'] += 1;
+                if ($valor_pago_all >= 0 and ($valor_pago_all >= $valor)) {
+                    $formings[] = $forming;
+                } elseif ($valor_pago_all >= 0 and ($valor_pago_all < $valor)) {
+                    $formingArray['inadimplentes'] += 1;
+                }
+            }
+        }
+        $formingStatus = null;
+        $contract = null;
+        $formingPerc = null;
+        $formingLabel = null;
+        $mostradetalhes=false;
+        return view('comissao.formandos', compact('contract', 'formingStatus', 'formingPerc', 'formings', 'formingLabel','mostradetalhes'));
+
     }
 
     public function registers() {
@@ -486,7 +689,9 @@ class ComissaoController extends Controller {
             }
         }
         //dd($products_cancel);
+
         return view('comissao.formando_show', compact('forming', 'products', (isset($formingLabel) ? 'formingLabel' : null), 'prods', 'products_cancel', (isset($formingLabel_cancel) ? 'formingLabel_cancel' : null), 'prods_cancel'));
+
     }
 
     public function formandosShowItem(FormandoProdutosEServicos $prod) {
