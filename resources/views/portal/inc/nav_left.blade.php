@@ -42,17 +42,19 @@
                 </a>
             </li>
             <?php
-         
-            
+            /*
+              ?>
+              @if( auth()->user()->userable->comissao)
+              <li @if($rota_menu == 'portal.orcamentos'){!! $css_active  !!}@endif>
+              <a class="left-menu-link" href="{{route('portal.orcamentos')}}">
+              <i class="left-menu-link-icon icmn-arrow-right2"> </i>
+              Orçamentos
+              </a>
+              </li>
+              @endif
+             * 
+             */
             ?>
-            @if( auth()->user()->userable->comissao)
-            <li @if($rota_menu == 'portal.orcamentos'){!! $css_active  !!}@endif>
-                <a class="left-menu-link" href="{{route('portal.orcamentos')}}">
-                    <i class="left-menu-link-icon icmn-arrow-right2"> </i>
-                    Orçamentos
-                </a>
-            </li>
-            @endif
             <li @if($rota_menu == 'portal.comprasextras'){!! $css_active !!}@endif>
                 <a class="left-menu-link" href="{{route('portal.comprasextras')}}">
                     <i class="left-menu-link-icon icmn-arrow-right2"></i>
@@ -101,24 +103,21 @@
                     Comissão de Formatura
                 </a>
             </li>
-
-            @if( auth()->user()->userable->contract_id == 1 )
-            <li @if($rota_menu == 'portal.identity'){!! $css_active !!}@endif>
-                <a class="left-menu-link" href="{{route('portal.identity')}}">
-                    <i class="left-menu-link-icon icmn-arrow-right2"></i>
-                    Identificação
-                </a>
-            </li>
-            @endif
-
-
             <!--
-            <li @if($rota_menu == 'portal.perfil'){!! $css_active  !!}@endif>
-                <a class="left-menu-link" href="{{route('portal.perfil')}}">
-                    <i class="left-menu-link-icon icmn-arrow-right2"><!-- </i>
-                    Meus Dados
-                </a>
-            </li>-->
+                        @if( auth()->user()->userable->contract_id == 1 )
+                        <li @if($rota_menu == 'portal.identity'){!! $css_active !!}@endif>
+                            <a class="left-menu-link" href="{{route('portal.identity')}}">
+                                <i class="left-menu-link-icon icmn-arrow-right2"></i>
+                                Identificação
+                            </a>
+                        </li>
+                        @endif
+                        <li @if($rota_menu == 'portal.perfil'){!! $css_active  !!}@endif>
+                            <a class="left-menu-link" href="{{route('portal.perfil')}}">
+                                <i class="left-menu-link-icon icmn-arrow-right2"><!-- </i>
+                                Meus Dados
+                            </a>
+                        </li>-->
         </ul>
 
     </div>

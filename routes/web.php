@@ -1,4 +1,5 @@
 <?php
+
 /*
   |--------------------------------------------------------------------------
   | Web Routes
@@ -9,7 +10,9 @@
   | contains the "web" middleware group. Now create something great!
   |
  */
+
 use Illuminate\Support\Facades\Auth;
+
 Route::group(['prefix' => '/', 'middleware' => 'web'], function () {
     //return redirect()->route('site.home');
     /* SITE */
@@ -48,6 +51,7 @@ Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => 'auth'], 
     Route::get('consultaTransacao/{invoice_id}', ['uses' => 'PortalController@consultaTransacao']);
     Route::get('home', ['uses' => 'PortalController@home', 'as' => 'home']);
     Route::get('extrato', ['uses' => 'PortalController@extrato', 'as' => 'extrato']);
+    Route::get('extrato/cancel/{prod}', ['uses' => 'PortalController@cancel', 'as' => 'extrato.cancel']);
     Route::get('extrato/prod/{prod}', ['uses' => 'PortalController@extratoProduto', 'as' => 'extrato.produto']);
     Route::get('extrato/prod-pay-credit/{prod}', ['uses' => 'PortalController@extratoProdutoPayCredit', 'as' => 'extrato.produto.paycredit']);
     Route::get('extrato/payment/{prod}', ['uses' => 'PortalController@extratoProdutoPayCredit2', 'as' => 'extrato.produto.payment']);
@@ -95,12 +99,15 @@ Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => 'auth'], 
     Route::get('surveys', ['uses' => 'PortalController@surveys', 'as' => 'survey.index']);
     Route::get('survey/{survey}', ['uses' => 'PortalController@surveyShow', 'as' => 'survey.show']);
     Route::post('survey/{survey}', ['uses' => 'PortalController@surveyAnswerStore', 'as' => 'survey.answer.store']);
-    Route::get('identify', ['uses' => 'PortalController@identify', 'as' => 'identity']);
+    //Route::get('identify', ['uses' => 'PortalController@identify', 'as' => 'identity']);
 });
 Route::get('raffle/number/{hash}', ['uses' => 'PortalController@raffleNumberHash', 'as' => 'raffle.number.hash']);
 Route::group(['prefix' => 'comissao', 'as' => 'comissao.', 'middleware' => ['auth', 'checkcomissao']], function () {
+    Route::get('logs', ['uses' => 'ComissaoController@logs', 'as' => 'logs']);
     Route::get('painel', ['uses' => 'ComissaoController@painel', 'as' => 'painel']);
     Route::get('formandos', ['uses' => 'ComissaoController@formandos', 'as' => 'formandos']);
+    Route::get('formandos/exportexcell', ['uses' => 'ComissaoController@exportexcell', 'as' => 'exportexcell']);
+    Route::get('formandos/printpapper', ['uses' => 'ComissaoController@printpapper', 'as' => 'printpapper']);
     Route::get('formandos/canceled', ['uses' => 'ComissaoController@formandosCanceled', 'as' => 'formandos.canceled']);
     Route::get('formandos/{forming}', ['uses' => 'ComissaoController@formandosShow', 'as' => 'formandos.show']);
     Route::get('formandos/extrato/{prod}', ['uses' => 'ComissaoController@formandosShowItem', 'as' => 'formandos.show.item']);

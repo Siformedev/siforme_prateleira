@@ -4,8 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class CheckComissao
-{
+class CheckComissao {
+
     /**
      * Handle an incoming request.
      *
@@ -13,14 +13,12 @@ class CheckComissao
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
-    {
-
+    public function handle($request, Closure $next) {
         if (auth()->user()->userable->comissao != 1) {
             return redirect()->route('portal.home');
         }
-
-
+        \View::share('helper', (new \App\Helpers\MainHelper()));
         return $next($request);
     }
+
 }

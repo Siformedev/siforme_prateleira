@@ -1,13 +1,11 @@
 @include('comissao.inc.top')
-
 @include('comissao.inc.nav_left')
-
 @include('comissao.inc.nav_menu')
-
 <body>
-
-@yield('content')
-
-@yield('scripts')
-
+    @yield('content')
 </body>
+@include('comissao.inc.footer')
+@yield('scripts')
+<script>
+    @yield('jscripts')
+</script>

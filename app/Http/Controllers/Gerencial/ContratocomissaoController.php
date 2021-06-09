@@ -10,10 +10,19 @@ use Illuminate\Http\Request;
 
 class ContratocomissaoController extends Controller {
 
+    function __construct() {
+      
+    }
+
     public function index($contract) {
         $model = new Contratocomissao();
-      
-        return view('gerencial.contratocomissao.index', ['contract' => $contract, 'budgets' => $model->where('contract_id', $contract)->get()]);
+        return view(
+                'gerencial.contratocomissao.index',
+                [
+                    'contract' => $contract,
+                    'budgets' => $model->where('contract_id', $contract)->get()
+                ]
+        );
     }
 
     public function delete($id) {

@@ -2,35 +2,32 @@
 
 namespace App\Http\Controllers\Gerencial;
 
-use App\Contract;
 use App\FormandoProdutosEServicos;
 use App\FormandoProdutosParcelas;
 use App\Forming;
 use App\ParcelasPagamentos;
-use App\ProductAndService;
-use App\PagamentosBoleto;
 use App\ProdutosEServicosTermo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
-use Intervention\Image\Facades\Image;
 
 class FormandoAdminController extends Controller {
 
     private $blockDifferentValue = true;
 
+    function __construct() {
+        parent::__construct();
+    }
+
     public function index(Request $request) {
-         
+
         $search = $request->get('search');
         if (isset($search) && !empty($search)) {
             $formings = Forming::where('nome', 'like', "%{$search}%")->orWhere('sobrenome', 'like', "%{$search}%")->orWhere('cpf', 'like', "%{$search}%")->orWhere('email', 'like', "%{$search}%")->get();
             $formingStatus = [];
             $formingPerc = [];
-            // dd($formings, $contract->formings);
             foreach ($formings as $forming) {
-                //dd($forming);
                 $valor = 0;
                 $valor_pago_all = 0;
                 $parcels = FormandoProdutosParcelas::where('formandos_id', $forming->id)->where('dt_vencimento', '<', date('Y-m-d'))->get();
@@ -103,7 +100,7 @@ class FormandoAdminController extends Controller {
      */
     public function editParcela($id) {
         $post = request()->all();
-        if ($id!=0) {
+        if ($id != 0) {
             $parcela = FormandoProdutosParcelas::find($id);
         } else {
             $parcela = new FormandoProdutosParcelas();
@@ -131,7 +128,7 @@ class FormandoAdminController extends Controller {
     }
 
     public function show(Forming $forming) {
-       
+
         $contract = $forming->contract->id;
         $products = [];
         $prods = $forming->products->where('status', 1);
@@ -209,7 +206,7 @@ class FormandoAdminController extends Controller {
     }
 
     public function showItem(FormandoProdutosEServicos $prod) {
-       
+
         $contract = auth()->user()->userable->contract_id;
         $forming = Forming::find($prod->forming_id);
         $parcelas = FormandoProdutosParcelas::leftJoin('parcelas_pagamentos', function($join) {
@@ -226,7 +223,7 @@ class FormandoAdminController extends Controller {
         $dateLimit = Carbon::now();
         $dateLimit->addDays(15);
         $pagamentos = [];
-        
+
         foreach ($parcelas as $parcela) {
             $id = $parcela['id'];
             $ret = ParcelasPagamentos::where('parcela_id', $id)->where('deleted', 0)->first();
