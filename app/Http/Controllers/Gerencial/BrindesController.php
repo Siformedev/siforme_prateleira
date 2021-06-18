@@ -12,9 +12,12 @@ use Illuminate\Http\Request;
 
 class BrindesController extends Controller {
 
+    function __construct() {
+        parent::__construct();
+    }
+
     public function index($contract) {
         $model = new Brindes();
-        
         return view('gerencial.brindes.index', ['contract' => $contract, 'budgets' => $model->where('contract_id', $contract)->get()]);
     }
 
@@ -24,14 +27,14 @@ class BrindesController extends Controller {
         session()->flash('sucesso', true);
         return redirect(url('/gerencial/brindes/' . $objeto->contract_id . '/index'));
     }
-    
-    public function retirarbrinde($idbrinde,$idformando,$contractid){
-        $model=new Brindesretirados();
-        $model->brinde_id=$idbrinde;
-        $model->forming_id=$idformando;
+
+    public function retirarbrinde($idbrinde, $idformando, $contractid) {
+        $model = new Brindesretirados();
+        $model->brinde_id = $idbrinde;
+        $model->forming_id = $idformando;
         $model->save();
         session()->flash('sucesso', true);
-        return redirect(url('/gerencial/brindes/create/' .$idbrinde."/". $contractid));
+        return redirect(url('/gerencial/brindes/create/' . $idbrinde . "/" . $contractid));
     }
 
     public function create($id = 0, int $contract) {
@@ -40,7 +43,7 @@ class BrindesController extends Controller {
             $objeto = $objeto->find($id);
         }
         $contrato = (new Contract())->find($contract);
-        return view('gerencial.brindes.create', ['idcontract' => $contract, 'id' => $id, 'objeto' => $objeto,'formings'=>$contrato->formings->where('status', 1)]);
+        return view('gerencial.brindes.create', ['idcontract' => $contract, 'id' => $id, 'objeto' => $objeto, 'formings' => $contrato->formings->where('status', 1)]);
     }
 
     public function store($idcontract, $idantigo, Request $request) {

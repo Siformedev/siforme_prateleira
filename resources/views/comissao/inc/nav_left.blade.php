@@ -60,7 +60,7 @@
                     Contrato
                 </a>
             </li>
-            <li @if($rota_menu == 'comissao.contrato'){!! $css_active  !!}@endif>
+            <li @if($rota_menu == 'comissao.logs'){!! $css_active  !!}@endif>
                 <a class="left-menu-link" href="{{route('comissao.logs')}}">
                     <i class="left-menu-link-icon icmn-arrow-right2"><!-- --></i>
                     Logs

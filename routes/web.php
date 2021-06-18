@@ -21,24 +21,16 @@ Route::group(['prefix' => '/', 'middleware' => 'web'], function () {
     Route::post('/contato', ['uses' => 'SiteController@contato', 'as' => 'site.contato']);
     Route::get('/simulacao', ['uses' => 'SiteController@simulacao', 'as' => 'site.simulacao']);
     Route::post('/simulacao', ['uses' => 'SiteController@simulacaoStore', 'as' => 'site.simulacao.store']);
-
-
     Route::get('/autorizacao', function() {
         include public_path() . '/auth_pseg.php';
     });
-
-
     Route::get('/retorno', function() {
         include public_path() . '/retorno_auth_pseg.php';
     });
 });
-
-
-
 Route::match(['get', 'post'], '/comissao/formandosadiplentes', 'ComissaoController@formandosadiplentes');
 Route::match(['get', 'post'], '/comissao/formandosinadiplentes', 'ComissaoController@formandosinadiplentes');
 Route::match(['get', 'post'], '/comissao/formandospendentes', 'ComissaoController@formandospendentes');
-
 /* TESTE */
 Route::get('teste/t1', ['uses' => 'TesteController@t1', 'as' => 'teste.t1']);
 Route::get('test/slack', ['uses' => 'TesteController@testSlack', 'as' => 'test.slack']);
@@ -55,13 +47,11 @@ Route::get('adesao/pagamento', ['uses' => 'adesaoController@pagamento', 'as' => 
 Route::get('adesao/pagamento/{dia}', ['uses' => 'adesaoController@pagamento', 'as' => 'adesao.pagamento.dia']);
 Route::post('adesao/vpagamento', ['uses' => 'adesaoController@validPagamento', 'as' => 'adesao.vpagamento']);
 Route::get('adesao/concluido', ['uses' => 'adesaoController@concluido', 'as' => 'adesao.concluido']);
-
 Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => 'auth'], function () {
     Route::get('budget/see/{id}', ['uses' => 'BudgetController@see', 'as' => 'budget.see']);
     Route::get('orcamentos', ['uses' => 'BudgetController@index', 'as' => 'orcamentos']);
     Route::get('consultaAtivaBoleto', ['uses' => 'PortalController@consultaAtivaBoleto']);
     Route::get('consultaTransacao/{invoice_id}', ['uses' => 'PortalController@consultaTransacao']);
-
     Route::get('home', ['uses' => 'PortalController@home', 'as' => 'home']);
     Route::get('extrato', ['uses' => 'PortalController@extrato', 'as' => 'extrato']);
     Route::get('extrato/cancel/{prod}', ['uses' => 'PortalController@cancel', 'as' => 'extrato.cancel']);
@@ -112,15 +102,11 @@ Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => 'auth'], 
     Route::get('surveys', ['uses' => 'PortalController@surveys', 'as' => 'survey.index']);
     Route::get('survey/{survey}', ['uses' => 'PortalController@surveyShow', 'as' => 'survey.show']);
     Route::post('survey/{survey}', ['uses' => 'PortalController@surveyAnswerStore', 'as' => 'survey.answer.store']);
-
-
     Route::get('identify', ['uses' => 'PortalController@identify', 'as' => 'identity']);
 });
 Route::get('raffle/number/{hash}', ['uses' => 'PortalController@raffleNumberHash', 'as' => 'raffle.number.hash']);
-
 Route::group(['prefix' => 'comissao', 'as' => 'comissao.', 'middleware' => ['auth', 'checkcomissao']], function () {
     Route::get('logs', ['uses' => 'ComissaoController@logs', 'as' => 'logs']);
-
     Route::get('painel', ['uses' => 'ComissaoController@painel', 'as' => 'painel']);
     Route::get('formandos', ['uses' => 'ComissaoController@formandos', 'as' => 'formandos']);
     Route::get('formandos/exportexcell', ['uses' => 'ComissaoController@exportexcell', 'as' => 'exportexcell']);
@@ -145,15 +131,16 @@ Route::group(['prefix' => 'comissao', 'as' => 'comissao.', 'middleware' => ['aut
     Route::get('lojinha/venda/{id}', ['uses' => 'ComissaoController@lojinhaVendaDetalhes', 'as' => 'lojinha.venda.detalhes']);
     Route::get('lojinha/venda/print/{id}', ['uses' => 'ComissaoController@lojinhaPedidoImprimir', 'as' => 'lojinha.venda.print']);
 });
-
 Route::group(['prefix' => 'gerencial', 'as' => 'gerencial.', 'middleware' => ['auth', 'checkcollaborator']], function () {
-
+    Route::get('reportfinance', ['uses' => 'Gerencial\ReportfinanceController@index', 'as' => 'reportfinance.index']);
     Route::get('collaborator/create', ['uses' => 'Gerencial\CollaboratorController@create', 'as' => 'collaborator.create']);
     Route::post('collaborator/store', ['uses' => 'Gerencial\CollaboratorController@store', 'as' => 'collaborator.store']);
     Route::get('collaborator', ['uses' => 'Gerencial\CollaboratorController@index', 'as' => 'collaborator.index']);
     Route::get('collaborator/edit/{collaborator}', ['uses' => 'Gerencial\CollaboratorController@edit', 'as' => 'collaborator.edit']);
     Route::post('collaborator/update/{collaborator}', ['uses' => 'Gerencial\CollaboratorController@update', 'as' => 'collaborator.update']);
     //Formandos
+    Route::get('formandos/exportexcell', ['uses' => 'Gerencial\FormandoAdminController@exportexcell', 'as' => 'exportexcell']);
+    Route::get('formandos/printpapper', ['uses' => 'Gerencial\FormandoAdminController@printpapper', 'as' => 'formandos.printpapper']);
     Route::get('formandos', ['uses' => 'Gerencial\FormandoAdminController@index', 'as' => 'formandos']);
     Route::post('formando/getparcela/{id}', ['uses' => 'Gerencial\FormandoAdminController@getParcela', 'as' => 'editaparcela']);
     Route::post('formando/editparcela/{id}', ['uses' => 'Gerencial\FormandoAdminController@editParcela', 'as' => 'formando.editparcela']);
@@ -182,7 +169,6 @@ Route::group(['prefix' => 'gerencial', 'as' => 'gerencial.', 'middleware' => ['a
     Route::get('cursos', ['uses' => 'CursosController@index', 'as' => 'cursos.index']);
     Route::post('cursos/store', ['uses' => 'CursosController@store', 'as' => 'cursos.store']);
     Route::post('cursos/delete/{id}', ['uses' => 'CursosController@delete', 'as' => 'cursos.delete']);
-
     //expenses
     Route::get('contrato/{contract}/expenses', ['uses' => 'Gerencial\Contrato\ContratoExpensesController@index', 'as' => 'contrato.expenses']);
     Route::get('contrato/{contract}/expenses/create', ['uses' => 'Gerencial\Contrato\ContratoExpensesController@create', 'as' => 'contrato.expenses.create']);
@@ -194,8 +180,8 @@ Route::group(['prefix' => 'gerencial', 'as' => 'gerencial.', 'middleware' => ['a
     Route::get('contrato/admin/{contract}/dashboard', ['uses' => 'Gerencial\ContratoAdminController@dashboard', 'as' => 'contrato.admin.dashboard']);
     Route::get('contrato/admin/{contract}/formings', ['uses' => 'Gerencial\ContratoAdminController@formings', 'as' => 'contrato.admin.formings']);
     Route::get('contrato/admin/{contract}/prod', ['uses' => 'Gerencial\ContratoAdminController@prod', 'as' => 'contrato.admin.prod']);
-    Route::get('contrato/admin/{contract}/prod/create', ['uses' => 'Gerencial\ContratoAdminController@prodCreate', 'as' => 'contrato.admin.prod.create']);
-    Route::post('contrato/admin/{contract}/prod/store', ['uses' => 'Gerencial\ContratoAdminController@prodStore', 'as' => 'contrato.admin.prod.store']);
+    Route::get('contrato/admin/{contract}/prod/create/{id?}', ['uses' => 'Gerencial\ContratoAdminController@prodCreate', 'as' => 'contrato.admin.prod.create']);
+    Route::post('contrato/admin/{contract}/prod/store/{idproduct?}', ['uses' => 'Gerencial\ContratoAdminController@prodStore', 'as' => 'contrato.admin.prod.store']);
     Route::get('contrato/admin/prod/{prod}/edit', ['uses' => 'Gerencial\ContratoAdminController@prodEdit', 'as' => 'contrato.admin.prod.edit']);
     Route::post('contrato/admin/prod/{prod}/edit', ['uses' => 'Gerencial\ContratoAdminController@prodEditPost', 'as' => 'contrato.admin.prod.edit.post']);
     Route::get('contrato/admin/prod/{prod}/remove', ['uses' => 'Gerencial\ContratoAdminController@prodRemove', 'as' => 'contrato.admin.prod.remove']);
@@ -204,7 +190,6 @@ Route::group(['prefix' => 'gerencial', 'as' => 'gerencial.', 'middleware' => ['a
     Route::get('contrato/admin/{contract}/finance-month', ['uses' => 'Gerencial\ContratoAdminController@financeAccumulatedMonthToMonth', 'as' => 'contrato.admin.finance.month']);
     Route::get('contrato/admin/{contract}/config_tipo_pagamento', ['uses' => 'Gerencial\ContratoAdminController@config_tipo_pagamento', 'as' => 'contrato.admin.config_tipo_pagamento']);
     Route::post('contrato/admin/store_tipo_pagamento', ['uses' => 'Gerencial\ContratoAdminController@store_tipo_pagamento', 'as' => 'contrato.admin.store_tipo_pagamento']);
-
     Route::get('orcamento/produtos', ['uses' => 'Gerencial\OrcamentoProdutoController@create', 'as' => 'orcamento.produto.create']);
     Route::get('orcamento/categorias', ['uses' => 'Gerencial\OrcamentoCategoriaController@create', 'as' => 'orcamento.categoria.create']);
     Route::get('calleds', ['uses' => 'Gerencial\CalledController@calleds', 'as' => 'calleds']);
@@ -212,7 +197,6 @@ Route::group(['prefix' => 'gerencial', 'as' => 'gerencial.', 'middleware' => ['a
     Route::post('calleds/show/{chamado}', ['uses' => 'Gerencial\CalledController@calledConversationsStore', 'as' => 'called.conversations.store']);
 });
 Auth::routes();
-
 Route::get('/home', function () {
     return redirect()->route('portal.home');
 });
@@ -232,7 +216,6 @@ Route::get('api/iugu/consults/{date}', ['uses' => 'API\IuguController@consults',
  * Cadastro de formandos não aderidos
  */
 Route::group(['prefix' => 'cad', 'as' => 'cad.'], function () {
-
     Route::get('', ['uses' => 'CadastroController@nContrato', 'as' => 'ncontrato']);
     Route::get('cpf', ['uses' => 'CadastroController@cpf', 'as' => 'cpf']);
     Route::post('cpf', ['uses' => 'CadastroController@cpfValid', 'as' => 'cpf.valid']);
@@ -244,7 +227,6 @@ Route::group(['prefix' => 'cad', 'as' => 'cad.'], function () {
  * API APPs
  */
 Route::group(['prefix' => 'api', 'as' => 'api.'], function () {
-
     Route::post('app/login', ['uses' => 'API\AppController@login', 'as' => 'app.login']);
     Route::post('app/atends', ['uses' => 'API\AppController@atendimento', 'as' => 'app.atend']);
     Route::post('app/atends/newmsg', ['uses' => 'API\AppController@atendNovaMsg', 'as' => 'app.atend.newmsg']);
@@ -263,13 +245,11 @@ Route::group(['prefix' => 'api', 'as' => 'api.'], function () {
  * WEB HOOK 
  */
 Route::group(['prefix' => 'webhook', 'as' => 'webhook.'], function () {
-
     Route::get('geraboletos', ['uses' => 'WebhookController@geraBoletos', 'as' => 'geraboletos']);
     Route::get('cancelaboletos', ['uses' => 'WebhookController@cancelaBoletos', 'as' => 'cancelaboletos']);
     Route::get('geraTickets', ['uses' => 'WebhookController@geraTickets', 'as' => 'geratickets']);
     Route::any('pseg', ['uses' => 'API\PsegController@webhook', 'as' => 'api.pseg.webhook']);
 });
-
 Route::get('/erro/404', function () {
     return view('erro.404');
 })->name('erro.404');

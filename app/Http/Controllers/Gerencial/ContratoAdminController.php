@@ -19,6 +19,8 @@ use Intervention\Image\Facades\Image;
 
 class ContratoAdminController extends Controller {
 
+    private $recordMaster;
+
     function __construct() {
         parent::__construct();
     }
@@ -95,7 +97,7 @@ class ContratoAdminController extends Controller {
         $graf_courses_quant .= "]";
         $graf_courses_title = str_replace(",]", "]", $graf_courses_title);
         $graf_courses_quant = str_replace(",]", "]", $graf_courses_quant);
-        //dd($graf_courses_title, $graf_courses_quant);
+//dd($graf_courses_title, $graf_courses_quant);
         $meta['inalcancado'] = $contract->goal - $formingArray['total'];
         $meta['alcancado'] = $formingArray['total'];
         $formingNowDay = Forming::where('contract_id', $contract->id)->where('dt_adesao', '=', date('Y-m-d'))->get();
@@ -104,12 +106,12 @@ class ContratoAdminController extends Controller {
 
     public function formings(Contract $contract) {
         $formings = $contract->formings->where('status', 1);
-        //dd($formings);
+//dd($formings);
         $formingStatus = [];
         $formingPerc = [];
-        // dd($formings, $contract->formings);
+// dd($formings, $contract->formings);
         foreach ($formings as $forming) {
-            //dd($forming);
+//dd($forming);
             $valor = 0;
             $valor_pago_all = 0;
             $parcels = FormandoProdutosParcelas::where('formandos_id', $forming->id)->where('dt_vencimento', '<', date('Y-m-d'))->get();
@@ -123,13 +125,13 @@ class ContratoAdminController extends Controller {
             $valor = $parcels->sum('valor');
             $valor_pago = 0;
             foreach ($parcels as $parcel) {
-                //dd($parcel->pagamento);
+//dd($parcel->pagamento);
                 if (isset($parcel->pagamento)) {
                     $valor_pago += $parcel->pagamento->sum('valor_pago');
                 }
             }
             @$perc_pago = number_format((($valor_pago_all / $valorTotal) * 100), 0);
-            //dd($valorTotal, $valor_pago, $perc_pago);
+//dd($valorTotal, $valor_pago, $perc_pago);
             if (!$perc_pago or empty($perc_pago)) {
                 $perc_pago = 0;
             }
@@ -167,20 +169,20 @@ class ContratoAdminController extends Controller {
         foreach ($categorias as $categoria) {
             $categoriaArray[$categoria['id']] = $categoria['name'];
         }
-        //dd($categoriaArray);
+//dd($categoriaArray);
         return view('gerencial.contrato.admin.prod', ['contract' => $contract, 'produtos' => $produtos, 'categorias' => $categoriaArray]);
     }
 
     public function prodEdit(Request $request, $prod) {
         $productValues = ProdutosService::veriricaValoresEDescontosAtuais($prod);
-        //dd($request->session());
+//dd($request->session());
         $prod = ProductAndService::find($prod);
         $categorias = \App\CategoriasProdutosEServicos::all()->toArray();
         $parcels = ProductAndServiceValues::where('products_and_services_id', $prod->id)->orderBy('date_start')->get();
         foreach ($categorias as $categoria) {
             $categoriaArray[$categoria['id']] = $categoria['name'];
         }
-        //dd($categoriaArray);
+//dd($categoriaArray);
         return view('gerencial.contrato.admin.prod_edit', compact('prod', 'categoriaArray', 'parcels', 'productValues'));
     }
 
@@ -201,11 +203,8 @@ class ContratoAdminController extends Controller {
             $date_end = $request->get('date_end');
             $date_start = Str::replaceFirst('T', ' ', $date_start);
             $date_end = Str::replaceFirst('T', ' ', $date_end);
-            // dd($date_start, $date_end);
             $date_start = Carbon::createFromFormat('Y-m-d H:i', $date_start)->toDateTimeString();
             $date_end = Carbon::createFromFormat('Y-m-d H:i', $date_end)->toDateTimeString();
-            //$prod = ProductAndService::find($prod);
-            //$categorias = \App\CategoriasProdutosEServicos::all()->toArray();
             $parcels = ProductAndServiceValues::where('products_and_services_id', $prod)
                     ->where('date_start', '<=', $date_start)
                     ->where('date_end', '>=', $date_end)
@@ -237,7 +236,12 @@ class ContratoAdminController extends Controller {
         return redirect()->route('gerencial.contrato.admin.prod.edit', ['prod' => $prod]);
     }
 
-    public function prodCreate(Contract $contract) {
+    public function prodCreate(Contract $contract, $idedit = null, Request $request) {
+        $data = request()->all();
+        $model = new ProductAndService();
+        if ($idedit) {
+            $this->recordMaster = $model->find($idedit);
+        }
         $produtos = ProductAndService::where('contract_id', $contract->id)->get();
         $categorias = \App\CategoriasProdutosEServicos::all()->toArray();
         foreach ($categorias as $categoria) {
@@ -247,26 +251,73 @@ class ContratoAdminController extends Controller {
         foreach ($termos as $termo) {
             $termoArray[$termo['id']] = $termo['titulo'];
         }
-        //dd($categoriaArray);
-        return view('gerencial.contrato.admin.prod_create', ['contract' => $contract, 'produtos' => $produtos, 'categorias' => $categoriaArray, 'termos' => $termoArray]);
+        return view('gerencial.contrato.admin.prod_create',
+                [
+                    'contract' => $contract,
+                    'produtos' => $produtos,
+                    'categorias' => $categoriaArray,
+                    'termos' => $termoArray,
+                    'product' => $this->recordMaster
+                ]
+        );
     }
 
-    public function prodStore(Request $request, Contract $contract) {
-        $this->validate($request, [
-            "name" => "required",
-            "description" => "required",
-            "img" => "required",
-            "value" => "required",
-            "maximum_parcels" => "required",
-            "category_id" => "required",
-            "reset_igpm" => "required",
-            "termo_id" => "required",
-            "date_start" => "required",
-            "date_end" => "required",
-            "limit_per_purchase" => "required",
-            "limit_per_form" => "required",
-            "stock" => "required",
-        ]);
+    public function prodStore(Request $request, Contract $contract, $idproduct = null) {
+        $object = $this;
+        $validar = function() use ($request, $object) {
+            $validations = [
+                "name" => "required",
+                "description" => "required",
+                "value" => "required",
+                "maximum_parcels" => "required",
+                "category_id" => "required",
+                "reset_igpm" => "required",
+                "termo_id" => "required",
+                "date_start" => "required",
+                "date_end" => "required",
+                "limit_per_purchase" => "required",
+                "limit_per_form" => "required",
+                "stock" => "required",
+            ];
+            !$this->recordMaster->img ? $validations['img'] = "required" : null;
+            return $object->validate($request, $validations);
+        };
+        $model = new ProductAndService();
+        $reqM = $request->method();
+        $data = request()->all();
+        if ($reqM == "POST" && $idproduct) {
+            $this->recordMaster = $model->find($idproduct);
+            $image = Input::file('img');
+            if ($image) {
+                $dirname = 'assets/uploads/produtos/';
+                $filename = time() . '.' . $image->getClientOriginalExtension();
+                $path = public_path($dirname . $filename);
+                $image = Image::make($image->getRealPath())->resize(200, 200)->save($path);
+                $dirimage = $dirname . $image->basename;
+            }
+            $validation = $validar();
+            if (!$validation) {
+                $this->recordMaster->maximum_parcels = $data['maximum_parcels'];
+                $this->recordMaster->value = str_replace(",", ".", $data['value']);
+                $this->recordMaster->date_start = str_replace('T', ' ', $data['date_start']);
+                $this->recordMaster->date_end = str_replace('T', ' ', $data['date_end']);
+                $this->recordMaster->termo_id = $data['termo_id'];
+                $this->recordMaster->limit_per_purchase = $data['limit_per_purchase'];
+                $this->recordMaster->limit_per_form = $data['limit_per_form'];
+                $this->recordMaster->stock = $data['stock'];
+                $this->recordMaster->date_end = $data['date_end'];
+                $this->recordMaster->category_id = $data['category_id'];
+                $this->recordMaster->img = (isset($dirimage) ? $dirimage : $this->recordMaster->img);
+                if (!$this->recordMaster->save()) {
+                    
+                } else {
+                    session()->flash('sucesso', true);
+                    return redirect(url('/gerencial/contrato/admin/' . $contract->id . '/prod/create/' . $idproduct))->send();
+                }
+            }
+        }
+        $validar();
+        $data = $request->all();
         $image = Input::file('img');
         if ($image) {
             $dirname = 'assets/uploads/produtos/';
@@ -274,10 +325,9 @@ class ContratoAdminController extends Controller {
             $path = public_path($dirname . $filename);
             $image = Image::make($image->getRealPath())->resize(200, 200)->save($path);
             $dirimage = $dirname . $image->basename;
+            $data['img'] = $dirimage;
         }
-        $data = $request->all();
         $data['contract_id'] = $contract->id;
-        $data['img'] = $dirimage;
         $data['value'] = str_replace(",", ".", $data['value']);
         unset($data['_token']);
         $prod = ProductAndService::create($data);
@@ -311,13 +361,13 @@ class ContratoAdminController extends Controller {
                         $total_forming['parcela'] += $parcel->valor;
                         if (isset($parcel->pagamento)) {
                             foreach ($parcel->pagamento as $pagamentos) {
-                                //Pagamento por tipo
+//Pagamento por tipo
                                 if (!isset($formings_data[$forming->id]['pgs'][$pagamentos->typepaind_type])) {
                                     $formings_data[$forming->id]['pgs'][$pagamentos->typepaind_type] = $pagamentos->valor_pago;
                                 } else {
                                     $formings_data[$forming->id]['pgs'][$pagamentos->typepaind_type] += $pagamentos->valor_pago;
                                 }
-                                //taxa
+//taxa
                                 if ($pagamentos->valor_pago > 0) {
                                     if (!isset($formings_data[$forming->id]['taxa'])) {
                                         $formings_data[$forming->id]['taxa'] = 2.49;
@@ -341,7 +391,6 @@ class ContratoAdminController extends Controller {
     }
 
     public function finance2(Request $request, Contract $contract) {
-
         $total = [];
         $total['parcela'] = 0;
         $total['pago'] = 0;
@@ -382,7 +431,7 @@ class ContratoAdminController extends Controller {
             $total_forming['parcela'] = 0;
             $total_forming['pago'] = 0;
         }
-        // dd($formings_data);
+// dd($formings_data);
         return view('gerencial.contrato.admin.finance', compact('formings_data', 'contract', 'total'));
     }
 
@@ -437,8 +486,8 @@ class ContratoAdminController extends Controller {
             echo "</tr>";
         }
         echo "</table>";
-        //return view('gerencial.contrato.admin.finance', compact('formings_data', 'contract', 'total'));
-        //@$vencs[$pagamentos->typepaind->due_date]+= ($pagamentos->valor_pago - 2.49);
+//return view('gerencial.contrato.admin.finance', compact('formings_data', 'contract', 'total'));
+//@$vencs[$pagamentos->typepaind->due_date]+= ($pagamentos->valor_pago - 2.49);
     }
 
     public function config_tipo_pagamento(Contract $contract) {
@@ -446,7 +495,6 @@ class ContratoAdminController extends Controller {
     }
 
     public function store_tipo_pagamento(Request $request) {
-
         $contract = Contract::find($request->contrato);
         $contract->tipo_pagamento = $request->tipo_pagamento;
         $contract->save();

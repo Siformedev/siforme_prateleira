@@ -22,6 +22,15 @@ class MainHelper {
         
     }
 
+    function debugquery($query, $die = true) {
+        $sql = $query->toSql();
+        $bindings = $query->getBindings();
+        dump($sql);
+        dump($bindings);
+        if ($die)
+            return exit;
+    }
+
     function log($formingId, $action) {
         $model = new \App\Logs();
         $model->action = $action;

@@ -82,6 +82,7 @@ class PortalController extends Controller {
     }
 
     public function extrato() {
+        
         $formando = Auth::user()->userable->id;
         $this->log('Acessou o extrato.');
         $pedidos = FormandoProdutosEServicos::where('forming_id', $formando)->where('status', 1)->get();
@@ -90,6 +91,7 @@ class PortalController extends Controller {
     }
 
     public function extratoProduto(FormandoProdutosEServicos $prod, PagSeguroService $pseg) {
+        
         $forming_id = \auth()->user()->userable->id;
         if ($prod->forming_id != $forming_id) {
             return redirect()->route('erro.404');

@@ -133,9 +133,9 @@
                             <tbody>
                                 @foreach($parcelas as $parcela)
                                 <?php
-                               
                                 $edit = false;
                                 $sumpg = 0;
+                                $pago=false;
                                 if (isset($pagamentos[$parcela['id']])) {
                                     $parc = $pagamentos[$parcela['id']];
                                     $sumpg = $parc->valor_pago;
@@ -148,7 +148,6 @@
                                     if (date('Y-m-d', strtotime($parcela['dt_vencimento'])) <= $dateLimit->format('Y-m-d')) {
                                         if (date('Y-m-d', strtotime($parcela['dt_vencimento'])) < date('Y-m-d')) {
                                             //$actionParc = '<span class="label label-warning" title="Seu boleto estará disponível 5 dias antes do vencimento" target="_blank">Emitindo seu boleto...</span>';
-                                            
                                             $actionParc = '<span class="label label-danger" target="_blank">Vencida</span>';
                                         } else {
                                             $edit = true;
@@ -167,7 +166,8 @@
                                 }
                                 if (!($parcela['status'] == 'Pago')) {
                                     $edit = true;
-                                    
+                                }else{
+                                    $pago=true;
                                 }
                                 ?>
                                 <tr>
@@ -192,15 +192,15 @@
                                     <td class="text-center">{{number_format($parcela['valor_pago'],2, ",", ".")}}</td>
                                     @endif
                                     <td class="text-center"> {!! $actionParc !!} </td>
-                                    <td> @if($edit)
-
+                                    <td> @if($edit && !$pago)
                                         <a href="javascript:;" class="editparcela" data-identity="{{$parcela['idparcela']}}">
                                             <i class="fa fa-pencil"></i>
                                         </a>
+                                        @endif
                                         <a href="javascript:;" class="removeparcela" data-identity="{{$parcela['idparcela']}}">
                                             <i class="fa fa-remove"></i>
                                         </a>
-                                        @endif</td>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>

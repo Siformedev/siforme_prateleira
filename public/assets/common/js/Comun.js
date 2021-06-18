@@ -1,9 +1,12 @@
-'use strict'
+'use strict';
 class Comun {
+
     constructor() {
         this.pathResources = '/assets/common/js/scripts/';
         this.loadScripts();
+        this.aplicaMascaras();
     }
+
     loadScripts() {
         if (typeof Jss !== "undefined") {
             $(Jss).each(function (indice, elemento) {
@@ -15,6 +18,7 @@ class Comun {
             });
         }
     }
+
     print(element) {
         var WindowPrint;
         WindowPrint = window.open('', '', 'width=1200,height=800');
@@ -38,6 +42,7 @@ class Comun {
         WindowPrint.document.close();
         WindowPrint.focus();
     }
+
     datatable(reference, display = 25) {
         $(reference).DataTable({
             responsive: true,
@@ -67,5 +72,13 @@ class Comun {
             "iDisplayLength": display,
             paging: true
         });
+    }
+
+    aplicaMascaras() {
+        $(".moeda").maskMoney({decimal: ".", thousands: ""});
+    }
+
+    mostraMensagemSucesso(message) {
+        swal("Sucesso", (typeof message !== "undefined" ? message : "Ação realizada com sucesso !"), "success");
     }
 }
