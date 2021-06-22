@@ -64,7 +64,7 @@
                     <a href="<?= url("/"); ?>/comissao/formandospendentes">
                         <div class="widget widget-seven background-default">
                             <div class="widget-body">
-                                <div class="widget-body-inner">
+                                <div class="widget-body-inner"> 
                                     <h5 class="text-uppercase">Formandos Pendentes</h5>
                                     <i class="counter-icon icmn-users"></i>
                                     <span class="counter-count">

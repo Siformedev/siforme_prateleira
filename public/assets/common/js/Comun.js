@@ -45,7 +45,7 @@ class Comun {
 
     datatable(reference, display = 25) {
         $(reference).DataTable({
-            responsive: true,
+            responsive: false,
             "oLanguage": {
                 "sEmptyTable": "Nenhum registro encontrado",
                 "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
