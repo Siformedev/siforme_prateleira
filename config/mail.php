@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'roberto.ht2ml@gmail.com'),
-        'name' => env('MAIL_FROM_NAME', 'Siforme'),
+        'address' => env('MAIL_FROM_ADDRESS', 'site@agenciapni.com.br'),
+        'name' => env('MAIL_FROM_NAME', 'PNI Formaturas'),
     ],
 
     /*
