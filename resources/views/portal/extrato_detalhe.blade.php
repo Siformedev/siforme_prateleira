@@ -373,7 +373,7 @@
                 alert("Seu boleto estará disponível 30 dias antes do vencimento");
             });
             
-            $(".boleto-imprimir").click(function (e) {                
+            /*$(".boleto-imprimir").click(function (e) {                
                 let url = "";
                 url = $(this).attr('href_javascript');
                 if(url.length < 50){
@@ -382,7 +382,7 @@
                     location.replace(url);
                 }
                 
-            });
+            });*/
         });
 
     PagSeguroDirectPayment.setSessionId('{{$id_sessao}}');

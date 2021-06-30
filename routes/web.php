@@ -105,7 +105,7 @@ Route::group(['prefix'=>'portal','as' => 'portal.', 'middleware' => 'auth'], fun
     Route::post('albuns/store', ['uses' => 'PortalController@albunsStore', 'as' => 'albuns.store']);
 
     Route::post('perfil/update', ['uses' => 'PortalController@perfilUpdate', 'as' => 'formando.update']);
-    Route::get('boleto/{parcela}/{hash_pseg?}', ['uses' => 'PortalController@boleto', 'as' => 'formando.boleto']);
+    //Route::get('boleto/{parcela}/{hash_pseg?}', ['uses' => 'PortalController@boleto', 'as' => 'formando.boleto']);
 
     Route::get('termo/pdf/{product}', ['uses' => 'PortalController@termoPdf', 'as' => 'termo.pdf']);
     //Route::get('mmvantagem', ['uses' => 'PortalController@mmvantagem', 'as' => 'mmvantagem']);

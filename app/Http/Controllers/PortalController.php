@@ -507,6 +507,7 @@ $parcelsModel->delete();
 
     public function boleto(FormandoProdutosParcelas $parcela, PagSeguroService $gatewayService, $hash_pseg = null)
     {
+        return false;
         //dd($hash_pseg);
         if (is_null($hash_pseg)) {
             return redirect()->back();
