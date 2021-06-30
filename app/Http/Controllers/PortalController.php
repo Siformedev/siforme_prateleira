@@ -77,6 +77,10 @@ class PortalController extends Controller
 
     public function extratoProduto(FormandoProdutosEServicos $prod, PagSeguroService $pseg)
     {
+        
+        
+        //return view('portal.paymentdisabled', []);
+        
 
         
         $forming_id = \auth()->user()->userable->id;
