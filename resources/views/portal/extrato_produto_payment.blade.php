@@ -341,7 +341,7 @@ function pagseguroValidateCard (element, bypassLengthTest) {
                 swal({ title: "Aviso", text: "Seu boleto estará disponível 4 dias antes do vencimento", type: "warning" });
             });
             
-
+/*
             $(".boleto-imprimir").click(function (e) {
                 
                 let url = "";
@@ -360,7 +360,7 @@ function pagseguroValidateCard (element, bypassLengthTest) {
                     console.log(url)
                     location.replace(url);
                 }                
-            });
+            });*/
     });
    
 
