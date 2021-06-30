@@ -104,7 +104,7 @@
                                     exit;
 */
                                         //$actionParc = '<a href_javascript="'.route('portal.formando.boleto',['parcela' => $parcela['id']]).'" class="label label-warning boleto-imprimir" target="_blank">Imprimir</a>';
-                                        $actionParc = '<a href="javascript:;" class="label label-warning" target="_blank">Boleto em processamento.</a>';
+                                        $actionParc = '<a href="javascript:void();" class="label label-warning" target="_blank">Boleto em processamento.</a>';
                                         //$actionParc = '<span class="label label-warning" title="Seu boleto estará disponível 5 dias antes do vencimento" target="_blank">Emitindo seu boleto...</span>';
                                     }elseif(date('Y-m-d', strtotime($parcela['dt_vencimento'])) < date('Y-m-d')){
                                         //$actionParc = '<span class="label label-warning" title="Seu boleto estará disponível 5 dias antes do vencimento" target="_blank">Emitindo seu boleto...</span>';
