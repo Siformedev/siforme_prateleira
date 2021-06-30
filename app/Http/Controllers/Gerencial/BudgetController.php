@@ -10,9 +10,13 @@ use Illuminate\Http\Request;
 
 class BudgetController extends Controller {
 
+    function __construct() {
+        parent::__construct();
+    }
+
     public function index($contract) {
         $model = new Budgets();
-      
+
         return view('gerencial.budget.index', ['contract' => $contract, 'budgets' => $model->where('contract_id', $contract)->get()]);
     }
 
