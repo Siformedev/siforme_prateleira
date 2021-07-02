@@ -54,11 +54,11 @@ if (typeof success != "undefined") {
     });
 }
 if (typeof Jss !== "undefined") {
-    $(Jss).each(function (indice, elemento) {
+    /*$(Jss).each(function (indice, elemento) {
         $.getScript('/assets/common/js/scripts/' + elemento + ".js")
                 .done(function (script, textStatus) {
                 }).fail(function (jqxhr, settings, exception) {
             alert("Houve um erro na requisição do script [" +  elemento + ".js]");
         });
-    });
+    });*/
 }

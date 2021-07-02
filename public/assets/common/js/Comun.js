@@ -8,9 +8,10 @@ class Comun {
     }
 
     loadScripts() {
+        var object=this;
         if (typeof Jss !== "undefined") {
             $(Jss).each(function (indice, elemento) {
-                $.getScript(this.pathResources + elemento + ".js")
+                $.getScript(object.pathResources + elemento + ".js")
                         .done(function (script, textStatus) {
                         }).fail(function (jqxhr, settings, exception) {
                     alert("Houve um erro na requisição do script [" + elemento + ".js]");

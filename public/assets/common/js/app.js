@@ -15,7 +15,7 @@ class App {
     }
     loadScripts() {
         var object = this;
-        if (typeof Jss !== "undefined") {
+        /*if (typeof Jss !== "undefined") {
             $(Jss).each(function (indice, elemento) {
                 $.getScript(object.locationJs + elemento + ".js?v="+Date.now())
                         .done(function (script, textStatus) {
@@ -23,7 +23,7 @@ class App {
                     alert("Houve um erro na requisição do script [" + object.locationJs + elemento + ".js]");
                 });
             });
-        }
+        }*/
     }
 
     showMessage(message) {
