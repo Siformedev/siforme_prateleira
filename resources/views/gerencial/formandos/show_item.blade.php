@@ -169,6 +169,7 @@
                                 }else{
                                     $pago=true;
                                 }
+                                
                                 ?>
                                 <tr>
                                     @if ($parcela['invoice_id']=='01082B57-91C6-4069-94A6-FDDF8A922226')
@@ -197,9 +198,11 @@
                                             <i class="fa fa-pencil"></i>
                                         </a>
                                         @endif
+                                        @if(!$pago)
                                         <a href="javascript:;" class="removeparcela" data-identity="{{$parcela['idparcela']}}">
                                             <i class="fa fa-remove"></i>
                                         </a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach
