@@ -2,37 +2,35 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Course;
 use Illuminate\Http\Request;
 
-class CursosController extends Controller
-{
-    public function index(){
+class CursosController extends Controller {
+
+    function __construct() {
+        parent::__construct();
+    }
+
+    public function index() {
         $cursos = Course::all();
         return view('gerencial.cursos.index', compact('cursos'));
     }
 
-    public function store(Request $request) 
-    {
+    public function store(Request $request) {
         $curso = Course::create([
-            'name'=>$request->nome,
-            'status'=>1
+                    'name' => $request->nome,
+                    'status' => 1
         ]);
-
-        return redirect()->back(); 
+        return redirect()->back();
     }
 
-    public function delete($id){
-        
-        
+    public function delete($id) {
         try {
             Course::destroy($id);
-            return redirect()->back(); 
+            return redirect()->back();
         } catch (\Throwable $th) {
-            return redirect()->back(); 
+            return redirect()->back();
         }
-       
-        
     }
+
 }

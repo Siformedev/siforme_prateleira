@@ -56,8 +56,10 @@ return [
     */
 
     'from' => [
+
         'address' => env('MAIL_FROM_ADDRESS', 'site@agenciapni.com.br'),
         'name' => env('MAIL_FROM_NAME', 'PNI Formaturas'),
+
     ],
 
     /*

@@ -81,7 +81,7 @@
 <script src="{{ asset('assets/vendors/c3/c3.min.js') }}"></script>
 <script src="{{ asset('assets/vendors/chartist/dist/chartist.min.js') }}"></script>
 <script src="{{ asset('assets/vendors/peity/jquery.peity.min.js') }}"></script>
-
+<script src="{{ asset('assets/vendors/maskmoney/dist/jquery.maskMoney.min.js') }}"></script>
 <!-- Cropper -->
 <script src="{{ asset('assets/vendors/cropper/cropper.min.js') }}"></script>
 <script src="{{ asset('assets/vendors/cropper/main.js') }}"></script>

@@ -37,7 +37,7 @@
 
             <!-- Profile -->
             <div class="row">
-                <div class="col-xl-4">
+                <div class="col-xl-12">
                     <section class="panel profile-user" style="background-image: url({{asset('assets/common/img/temp/photos/12.jpg')}})">
                         <div class="panel-body">
                             <div class="profile-user-title text-center">
@@ -152,7 +152,7 @@
                     -->
                 </div>
 
-                <div class="col-xl-8">
+                <div class="col-xl-12">
                     <section class="panel profile-user-content">
                         <div class="panel-body">
                             <div class="nav-tabs-horizontal">
@@ -295,7 +295,7 @@
                                         <div class="col-lg-1">
                                             <div class="form-group">
                                                 {{ Form::label('numero', 'Número') }}
-                                                {{ Form::text('numero', null, array_merge(['class' => 'form-control', 'id' => 'numero'])) }}
+                                                {{ Form::text('numero', null, array_merge(['class' => 'form-control', 'id' => 'numero','required'])) }}
                                             </div>
                                         </div>
 
@@ -356,14 +356,15 @@
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 {{ Form::label('telefone-residencial', 'Telefone Residencial') }}
-                                                {{ Form::text('telefone_residencial', null, array_merge(['class' => 'form-control', 'id' => 'telefone-residencial'])) }}
+                                                {{ Form::number('telefone_residencial', null, array_merge(['class' => 'form-control', 'id' => 'telefone-residencial'])) }}
+                                                
                                             </div>
                                         </div>
 
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 {{ Form::label('telefone-celular', 'Telefone Celular') }}
-                                                {{ Form::text('telefone_celular', null, array_merge(['class' => 'form-control', 'id' => 'telefone-celular'])) }}
+                                                {{ Form::number('telefone_celular', null, array_merge(['class' => 'form-control', 'id' => 'telefone-celular'])) }}
                                             </div>
                                         </div>
 
@@ -384,7 +385,7 @@
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 {{ Form::label('telefone_celular_pai', 'Telefone Celular do Pai') }}
-                                                {{ Form::text('telefone_celular_pai', null, array_merge(['class' => 'form-control', 'id' => 'telefone_celular_pai'])) }}
+                                                {{ Form::number('telefone_celular_pai', null, array_merge(['class' => 'form-control', 'id' => 'telefone_celular_pai'])) }}
                                             </div>
                                         </div>
 
@@ -405,7 +406,7 @@
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 {{ Form::label('telefone_celular_mae', 'Telefone Celular da Mãe') }}
-                                                {{ Form::text('telefone_celular_mae', null, array_merge(['class' => 'form-control', 'id' => 'telefone_celular_mae'])) }}
+                                                {{ Form::number('telefone_celular_mae', null, array_merge(['class' => 'form-control', 'id' => 'telefone_celular_mae'])) }}
                                             </div>
                                         </div>
 

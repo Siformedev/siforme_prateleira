@@ -1,8 +1,11 @@
 <nav class="left-menu" left-menu>
     <div class="logo-container">
         <a href="index.html" class="logo">
+
             <img src="{{ env('APP_LOGO') }}" alt="SIFORME LOGO">
             <img class="logo-inverse" src="../assets/common/img/logo-inverse.png" alt="Clean UI Admin Template" />
+
+
         </a>
     </div>
     <div class="left-menu-inner scroll-pane jspScrollable" tabindex="0"
@@ -38,8 +41,20 @@
                     Álbum de Formatura
                 </a>
             </li>
-
-
+            <?php
+            /*
+              ?>
+              @if( auth()->user()->userable->comissao)
+              <li @if($rota_menu == 'portal.orcamentos'){!! $css_active  !!}@endif>
+              <a class="left-menu-link" href="{{route('portal.orcamentos')}}">
+              <i class="left-menu-link-icon icmn-arrow-right2"> </i>
+              Orçamentos
+              </a>
+              </li>
+              @endif
+             * 
+             */
+            ?>
             <li @if($rota_menu == 'portal.comprasextras'){!! $css_active !!}@endif>
                 <a class="left-menu-link" href="{{route('portal.comprasextras')}}">
                     <i class="left-menu-link-icon icmn-arrow-right2"></i>
@@ -65,12 +80,12 @@
             @endif
 
             @if( auth()->user()->userable->contract_id == 7 )
-                <li @if($rota_menu == 'portal.survey.index'){!! $css_active !!}@endif>
-                    <a class="left-menu-link" href="{{route('portal.survey.index')}}">
-                        <i class="left-menu-link-icon icmn-arrow-right2"></i>
-                        Enquete
-                    </a>
-                </li>
+            <li @if($rota_menu == 'portal.survey.index'){!! $css_active !!}@endif>
+                <a class="left-menu-link" href="{{route('portal.survey.index')}}">
+                    <i class="left-menu-link-icon icmn-arrow-right2"></i>
+                    Enquete
+                </a>
+            </li>
             @endif
 
             @if( auth()->user()->userable->contract_id == 7 )
@@ -88,24 +103,21 @@
                     Comissão de Formatura
                 </a>
             </li>
-
-            @if( auth()->user()->userable->contract_id == 1 )
-            <li @if($rota_menu == 'portal.identity'){!! $css_active !!}@endif>
-                <a class="left-menu-link" href="{{route('portal.identity')}}">
-                    <i class="left-menu-link-icon icmn-arrow-right2"></i>
-                    Identificação
-                </a>
-            </li>
-            @endif
-
-
             <!--
-            <li @if($rota_menu == 'portal.perfil'){!! $css_active  !!}@endif>
-                <a class="left-menu-link" href="{{route('portal.perfil')}}">
-                    <i class="left-menu-link-icon icmn-arrow-right2"><!-- </i>
-                    Meus Dados
-                </a>
-            </li>-->
+                        @if( auth()->user()->userable->contract_id == 1 )
+                        <li @if($rota_menu == 'portal.identity'){!! $css_active !!}@endif>
+                            <a class="left-menu-link" href="{{route('portal.identity')}}">
+                                <i class="left-menu-link-icon icmn-arrow-right2"></i>
+                                Identificação
+                            </a>
+                        </li>
+                        @endif
+                        <li @if($rota_menu == 'portal.perfil'){!! $css_active  !!}@endif>
+                            <a class="left-menu-link" href="{{route('portal.perfil')}}">
+                                <i class="left-menu-link-icon icmn-arrow-right2"><!-- </i>
+                                Meus Dados
+                            </a>
+                        </li>-->
         </ul>
 
     </div>

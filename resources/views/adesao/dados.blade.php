@@ -134,7 +134,7 @@
                         <div class="col-lg-1">
                             <div class="form-group">
                                 {{ Form::label('numero', 'Número') }}
-                                {{ Form::text('numero', $data['numero'], array_merge(['class' => 'form-control', 'id' => 'numero'])) }}
+                                {{ Form::text('numero', $data['numero'], array_merge(['class' => 'form-control', 'id' => 'numero','required'])) }}
                             </div>
                         </div>
 
@@ -198,7 +198,7 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('telefone-residencial', 'Telefone Residencial') }}
-                                {{ Form::text('telefone-residencial', $data['telefone-residencial'], array_merge(['class' => 'form-control', 'id' => 'telefone-residencial'])) }}
+                                {{ Form::number('telefone-residencial', $data['telefone-residencial'], array_merge(['class' => 'form-control', 'id' => 'telefone-residencial'])) }}
                             </div>
                         </div>
 
@@ -208,7 +208,7 @@
                                     if(isset($register)){$cellphone = $register['cellphone'];}elseif(isset($data['telefone-celular'])){$cellphone = $data['telefone-celular'];}else{$cellphone = null;}
                                 @endphp
                                 {{ Form::label('telefone-celular', 'Telefone Celular') }}
-                                {{ Form::text('telefone-celular', $cellphone, array_merge(['class' => 'form-control', 'id' => 'telefone-celular'])) }}
+                                {{ Form::number('telefone-celular', $cellphone, array_merge(['class' => 'form-control', 'id' => 'telefone-celular'])) }}
                             </div>
                         </div>
 
@@ -229,14 +229,14 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('telefone_celular_pai', 'Telefone Celular do Pai') }}
-                                {{ Form::text('telefone_celular_pai', $data['telefone_celular_pai'], array_merge(['class' => 'form-control', 'id' => 'telefone_celular_pai'])) }}
+                                {{ Form::number('telefone_celular_pai', $data['telefone_celular_pai'], array_merge(['class' => 'form-control', 'id' => 'telefone_celular_pai'])) }}
                             </div>
                         </div>
 
                         <div class="col-lg-4">
                             <div class="form-group">
                                 {{ Form::label('nome_da_mae', 'Nome da Mãe') }}
-                                {{ Form::text('nome_da_mae', $data['nome_da_mae'], array_merge(['class' => 'form-control', 'id' => 'nome_da_mae'])) }}
+                                {{ Form::number('nome_da_mae', $data['nome_da_mae'], array_merge(['class' => 'form-control', 'id' => 'nome_da_mae'])) }}
                             </div>
                         </div>
 

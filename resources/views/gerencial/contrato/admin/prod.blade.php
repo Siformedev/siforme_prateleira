@@ -45,7 +45,8 @@
                             </div>
                             <div class="col-md-2">
                             <div class="col-md-12" style="padding-bottom: 2%">
-                                <a href="{{route('gerencial.contrato.admin.prod.edit', ['prod' => $p['id']])}}" class="btn btn-success btn-block">Gerenciar</a>
+                                <a href="{{route('gerencial.contrato.admin.prod.edit', ['prod' => $p['id']])}}" class="btn btn-success btn-block"><i class="fa fa-cogs"></i> Gerenciar</a>
+                                <a href="{{url('/gerencial/contrato/admin/3/prod/create/'.$p['id'])}}" class="btn btn-primary btn-block"><i class="fa fa-pencil"></i> Editar</a>
                             </div>
                             
                             <!--<div class="col-md-12">

@@ -426,8 +426,8 @@ class adesaoController extends Controller
                 $serviceProdutos->cadastraProduto($parcelas, $dia, $date_inicio, $formando->id, $contrato);
                 $request->session()->put(['adesao_ok_id' => $formando->id]);
 
-                $fromMail = 'naoresponda@arrecadeei.com.br';
-                $fromName = 'Arrecadeei - Formatura do Futuro';
+                $fromMail = 'naoresponda@siforme.com.br';
+                $fromName = 'Siforme';
                 $dataEmail = $formando->toArray();
                 $dataEmail['senha'] = $senha;
 
